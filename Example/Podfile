@@ -2,10 +2,11 @@ use_frameworks!
 
 target 'StackScrollView_Example' do
   pod 'StackScrollView', :path => '../'
+  pod 'Then'
 
   target 'StackScrollView_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end
