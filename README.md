@@ -14,7 +14,7 @@
 
 sample screenshot
 
-![](shot.png)
+<img src="shot.png" width=120>
 
 ## Requirements
 
