@@ -10,9 +10,10 @@
 **Work in progress**
 
 - StackScrollView (Core) this repository
-    - UI Components (Other repository)
+    - UI Components (child repository) [StackScrollViewComponents](https://github.com/muukii/StackScrollViewComponents)
 
 sample screenshot
+this sample -> [StackScrollViewComponents](https://github.com/muukii/StackScrollViewComponents)
 
 <img src="shot.png" width=120>
 
