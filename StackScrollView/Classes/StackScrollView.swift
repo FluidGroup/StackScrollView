@@ -40,7 +40,12 @@ public class StackScrollView: UIScrollView {
     
     public func setup() {
         
+        contentView.backgroundColor = UIColor.clearColor()
         addSubview(contentView)
+        
+        alwaysBounceVertical = true
+        delaysContentTouches = false
+        keyboardDismissMode = .OnDrag
         
         contentView <- [
             Edges(),
@@ -99,6 +104,12 @@ public class StackScrollView: UIScrollView {
         } else {
             perform()
         }
+    }
+    
+    public func scroll(to view: UIView, animated: Bool) {
+        
+        let targetRect = view.convertRect(view.bounds, toView: self)
+        scrollRectToVisible(targetRect, animated: true)
     }
     
     private func updateVerticalLayout(animated animated: Bool) {
@@ -181,11 +192,7 @@ public class StackScrollView: UIScrollView {
                 ]
             }
         }
-        
-        views.forEach {
-            $0.frame.size.width = contentView.bounds.width
-        }
-        
+                       
         if animated {
             
             UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: {

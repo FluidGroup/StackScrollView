@@ -38,4 +38,9 @@ extension StackScrollViewCellType where Self: UIView {
         
         stackScrollView.setHidden(hidden, view: self, animated: animated)        
     }
+    
+    public func scrollToSelf(animated animated: Bool) {
+        
+        stackScrollView.scroll(to: self, animated: animated)
+    }
 }
