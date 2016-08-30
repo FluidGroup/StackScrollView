@@ -27,35 +27,41 @@ import EasyPeasy
 public class StackScrollView: UIScrollView {
     
     public override init(frame: CGRect) {
+        
         super.init(frame: frame)
         setup()
     }
     
     public required init?(coder aDecoder: NSCoder) {
+        
         super.init(coder: aDecoder)
         setup()
     }
     
     public func setup() {
-        addSubview(containerView)
         
-        containerView <- [
+        addSubview(contentView)
+        
+        contentView <- [
             Edges(),
             Width().like(self, .Width),
         ]
     }
     
     public func append(view view: UIView, animated: Bool) {
+        
         views.append(view)
         updateVerticalLayout(animated: animated)
     }
     
     public func append(views views: [UIView], animated: Bool) {
+        
         self.views += views
         updateVerticalLayout(animated: animated)
     }
     
     public func remove(view view: UIView, animated: Bool) {
+        
         if let index = views.indexOf(view) {
             views.removeAtIndex(index)
             view.removeFromSuperview()
@@ -63,10 +69,41 @@ public class StackScrollView: UIScrollView {
         updateVerticalLayout(animated: animated)
     }
     
+    public func setHidden(hidden: Bool, view: UIView, animated: Bool) {
+        
+        func perform() {
+            if hidden {
+                view.superview! <- [
+                    Height(0)
+                ]
+            } else {
+                
+                NSLayoutConstraint.deactivateConstraints(
+                    view.superview! <- [
+                        Height(0)
+                    ]
+                )                                
+            }
+        }
+        
+        if animated {
+            
+            UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: {
+                
+                perform()
+                self.layoutIfNeeded()
+                
+            }) { (finish) in
+                
+            }
+        } else {
+            perform()
+        }
+    }
+    
     private func updateVerticalLayout(animated animated: Bool) {
-        
-        
-        func update() {
+                
+        func perform() {
             
             guard views.count > 0 else {
                 return
@@ -75,8 +112,7 @@ public class StackScrollView: UIScrollView {
             if views.count == 1 {
                 
                 let firstView = views.first!
-                addSubViewToContainerViewIfNeeded(firstView)
-                firstView <- [
+                addSubViewToContainerViewIfNeeded(firstView) <- [
                     Edges(),
                 ]
                 
@@ -87,21 +123,22 @@ public class StackScrollView: UIScrollView {
                 let firstView = views.first!
                 let lastView = views.last!
                 
-                addSubViewToContainerViewIfNeeded(firstView)
-                addSubViewToContainerViewIfNeeded(lastView)
+                let lastContainerView = addSubViewToContainerViewIfNeeded(lastView)                                
+                let firstContainerView = addSubViewToContainerViewIfNeeded(firstView)
                 
-                firstView <- [
+                firstContainerView <- [
                     Top(),
                     Right(),
                     Left(),
-                    Bottom().to(lastView, .Top),
+                    Bottom().to(lastContainerView, .Top),
                 ]
                 
-                lastView <- [
+                lastContainerView <- [
                     Right(),
                     Left(),
                     Bottom(),
                 ]
+                
                 
                 return
             }
@@ -113,31 +150,31 @@ public class StackScrollView: UIScrollView {
                 let firstView = _views.removeFirst()
                 let lastView = _views.removeLast()
                 
-                addSubViewToContainerViewIfNeeded(firstView)
-                addSubViewToContainerViewIfNeeded(lastView)
+                let firstContainerView = addSubViewToContainerViewIfNeeded(firstView)
+                let lastContainerView = addSubViewToContainerViewIfNeeded(lastView)
                 
-                firstView <- [
+                firstContainerView <- [
                     Top(),
                     Right(),
                     Left(),
                 ]
                 
-                var _topView: UIView = firstView
+                var _topContainerView: UIView = firstView
                 
                 for view in _views {
                     
-                    addSubViewToContainerViewIfNeeded(view)
+                    let containerView = addSubViewToContainerViewIfNeeded(view)
                     
-                    view <- [
-                        Top().to(_topView, .Bottom),
+                    containerView <- [
+                        Top().to(_topContainerView, .Bottom),
                         Right(),
                         Left(),
                     ]
-                    _topView = view
+                    _topContainerView = containerView
                 }
                 
-                lastView <- [
-                    Top().to(_topView, .Bottom),
+                lastContainerView <- [
+                    Top().to(_topContainerView, .Bottom),
                     Right(),
                     Left(),
                     Bottom(),
@@ -146,31 +183,40 @@ public class StackScrollView: UIScrollView {
         }
         
         views.forEach {
-            $0.frame.size.width = containerView.bounds.width
+            $0.frame.size.width = contentView.bounds.width
         }
         
         if animated {
             
             UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: {
                 
-                update()
+                perform()
                 self.layoutIfNeeded()
                 
             }) { (finish) in
                 
             }
         } else {
-            update()
+            perform()
         }
     }
     
     private var views: [UIView] = []
     
-    private let containerView = UIView()
+    private let contentView = UIView()
     
-    private func addSubViewToContainerViewIfNeeded(view: UIView) {
-        if view.superview != containerView {
+    private func addSubViewToContainerViewIfNeeded(view: UIView) -> UIView {
+        if view.superview == nil {
+            let containerView = UIView()
+            containerView.opaque = true
+            containerView.backgroundColor = UIColor.clearColor()
+            containerView.clipsToBounds = true
             containerView.addSubview(view)
+            view <- [
+                Edges().with(.MediumPriority)
+            ]
+            contentView.addSubview(containerView)
         }
+        return view.superview!
     }
 }
