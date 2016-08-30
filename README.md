@@ -15,7 +15,7 @@
 sample screenshot
 this sample -> [StackScrollViewComponents](https://github.com/muukii/StackScrollViewComponents)
 
-<img src="shot.png" width=120>
+<img src="shot.png" width=375>
 
 ## Requirements
 
