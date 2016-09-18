@@ -88,7 +88,7 @@ class LabelStackViewCell: UIView {
         ]
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
     }
     
@@ -120,10 +120,10 @@ class SwitchStackViewCell: UIView {
             CenterY(),
         ]
         
-        switchView.addTarget(self, action: #selector(switchValueChanged), forControlEvents: .ValueChanged)
+        switchView.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
     }
     
@@ -135,9 +135,9 @@ class SwitchStackViewCell: UIView {
     
     let switchView = UISwitch()
     
-    @objc private func switchValueChanged() {
+    @objc fileprivate func switchValueChanged() {
         
-        valueChanged(switchView.on)
+        valueChanged(switchView.isOn)
     }
 }
 
@@ -151,24 +151,24 @@ class TextFieldStackViewCell: UIView {
         addSubview(titleLabel)
         addSubview(textField)
         
-        titleLabel.setContentHuggingPriority(950, forAxis: .Horizontal)
+        titleLabel.setContentHuggingPriority(950, for: .horizontal)
         titleLabel <- [
             Left(8),
             CenterY(),
         ]
         
         textField <- [
-            Left(8).to(titleLabel, .Right),
+            Left(8).to(titleLabel, .right),
             Right(8),
             CenterY(),
         ]
         
         textField.backgroundColor = UIColor(white: 0, alpha: 0.5)
         
-        textField.addTarget(self, action: #selector(textChanged), forControlEvents: .EditingChanged)
+        textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
     }
     
@@ -180,7 +180,7 @@ class TextFieldStackViewCell: UIView {
     
     let textField = UITextField()
     
-    @objc private func textChanged() {
+    @objc fileprivate func textChanged() {
         
         valueChanged(textField.text ?? "")
     }

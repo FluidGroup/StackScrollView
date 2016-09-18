@@ -16,7 +16,39 @@
 		4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */; };
 		4B6C2DB91D8DA68E003D3A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */; };
 		4B6C2DBC1D8DA68E003D3A46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DBA1D8DA68E003D3A46 /* LaunchScreen.storyboard */; };
+		4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; };
+		4BE8B6EE1D8E5A9700A4DC33 /* StackScrollView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BE8B6F61D8E5AF200A4DC33 /* Then.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B6F51D8E5AF200A4DC33 /* Then.framework */; };
+		4BE8B6F71D8E5AF200A4DC33 /* Then.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B6F51D8E5AF200A4DC33 /* Then.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BE8B6F81D8E5B3500A4DC33 /* EasyPeasy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */; };
+		4BE8B6F91D8E5B3500A4DC33 /* EasyPeasy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4BE8B6EF1D8E5A9700A4DC33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B6C2D901D8DA3FB003D3A46 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B6C2D981D8DA3FB003D3A46;
+			remoteInfo = StackScrollView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4BE8B6F11D8E5A9700A4DC33 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4BE8B6F91D8E5B3500A4DC33 /* EasyPeasy.framework in Embed Frameworks */,
+				4BE8B6EE1D8E5A9700A4DC33 /* StackScrollView.framework in Embed Frameworks */,
+				4BE8B6F71D8E5AF200A4DC33 /* Then.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StackScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +64,7 @@
 		4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6C2DBB1D8DA68E003D3A46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B6C2DBD1D8DA68E003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BE8B6F51D8E5AF200A4DC33 /* Then.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Then.framework; path = Carthage/Build/iOS/Then.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +80,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BE8B6F81D8E5B3500A4DC33 /* EasyPeasy.framework in Frameworks */,
+				4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */,
+				4BE8B6F61D8E5AF200A4DC33 /* Then.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +122,7 @@
 		4B6C2DA81D8DA439003D3A46 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4BE8B6F51D8E5AF200A4DC33 /* Then.framework */,
 				4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */,
 			);
 			name = Frameworks;
@@ -143,10 +180,12 @@
 				4B6C2DAB1D8DA68E003D3A46 /* Sources */,
 				4B6C2DAC1D8DA68E003D3A46 /* Frameworks */,
 				4B6C2DAD1D8DA68E003D3A46 /* Resources */,
+				4BE8B6F11D8E5A9700A4DC33 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4BE8B6F01D8E5A9700A4DC33 /* PBXTargetDependency */,
 			);
 			name = "StackScrollView-Demo";
 			productName = "StackScrollView-Demo";
@@ -172,6 +211,7 @@
 					4B6C2DAE1D8DA68E003D3A46 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = KU2QEJ9K3Z;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -235,6 +275,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4BE8B6F01D8E5A9700A4DC33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B6C2D981D8DA3FB003D3A46 /* StackScrollView */;
+			targetProxy = 4BE8B6EF1D8E5A9700A4DC33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */ = {
@@ -407,8 +455,13 @@
 		4B6C2DBE1D8DA68E003D3A46 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "StackScrollView-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.StackScrollView-Demo";
@@ -420,8 +473,13 @@
 		4B6C2DBF1D8DA68E003D3A46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KU2QEJ9K3Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "StackScrollView-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.StackScrollView-Demo";
@@ -458,6 +516,7 @@
 				4B6C2DBF1D8DA68E003D3A46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
