@@ -34,12 +34,12 @@ extension StackScrollViewCellType where Self: UIView {
         return superview as! StackScrollView
     }
     
-    public func setHidden(hidden: Bool, animated: Bool) {
+    public func setHidden(_ hidden: Bool, animated: Bool) {
         
         stackScrollView.setHidden(hidden, view: self, animated: animated)        
     }
     
-    public func scrollToSelf(animated animated: Bool) {
+    public func scrollToSelf(animated: Bool) {
         
         stackScrollView.scroll(to: self, animated: animated)
     }
