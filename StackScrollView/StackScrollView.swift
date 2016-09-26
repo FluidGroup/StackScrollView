@@ -112,6 +112,10 @@ open class StackScrollView: UIScrollView {
         scrollRectToVisible(targetRect, animated: true)
     }
     
+    open override func touchesShouldCancel(in view: UIView) -> Bool {
+        return true
+    }
+    
     fileprivate func updateVerticalLayout(animated: Bool) {
                 
         func perform() {
