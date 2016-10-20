@@ -224,7 +224,10 @@ open class StackScrollView: UIScrollView {
             containerView.clipsToBounds = true
             containerView.addSubview(view)
             view <- [
-                Edges().with(.mediumPriority)
+                Top().with(.mediumPriority),
+                Right(),
+                Bottom().with(.mediumPriority),
+                Left(),
             ]
             contentView.addSubview(containerView)
         }
