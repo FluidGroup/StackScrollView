@@ -31,6 +31,8 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         tableView.backgroundColor = UIColor.clear
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tableView.frame = bounds
+        tableView.separatorStyle = .none
+        tableView.separatorInset = .zero
         
         addSubview(tableView)
     }
@@ -45,17 +47,7 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     
     open func append(view: UIView, animated: Bool) {
         
-        let cell = UITableViewCell(frame: .zero)
-        let contentView = cell.contentView
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(view)
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: contentView, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0),
-            ])
-        cells.append(cell)
+        cells.append(createCell(view: view))
         
         // TODO: Improve performance, animated
         tableView.reloadData()
@@ -63,19 +55,7 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     
     open func append(views: [UIView], animated: Bool) {
         
-        let _cells = views.map { view -> UITableViewCell in
-            let cell = UITableViewCell(frame: .zero)
-            let contentView = cell.contentView
-            view.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(view)
-            NSLayoutConstraint.activate([
-                NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: contentView, attribute: .right, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0),
-                NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0),
-                ])
-            return cell
-        }
+        let _cells = views.map(createCell)
         
         cells += _cells
         // TODO: Improve performance, animated
@@ -95,6 +75,21 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     public var cells: [UITableViewCell] = []
     
     private let tableView = UITableView(frame: .zero, style: .plain)
+    
+    private func createCell(view: UIView) -> UITableViewCell {
+        let cell = UITableViewCell(frame: .zero)
+        cell.separatorInset = .zero
+        let contentView = cell.contentView
+        view.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(view)
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: contentView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0),
+            ])
+        return cell
+    }
     
     // MARK: - UITableViewDataSource
     
