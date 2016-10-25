@@ -51,14 +51,35 @@ class ViewController: UIViewController {
             }
         }
         
+        let topCells = (0...20).map { i -> LabelStackViewCell in
+            LabelStackViewCell().then { cell in
+                cell.backgroundColor = colorA
+                cell.titleLabel.text = "\(i)"
+                cell.detailLabel.text = "\(i)"
+            }
+        }
+        
+        let mediumCells = [
+            labelCell,
+            switchCell,
+            textFieldCell,
+            ]
+        
+        let bottomCells = (20...40).map { i -> LabelStackViewCell in
+            LabelStackViewCell().then { cell in
+                cell.backgroundColor = colorA
+                cell.titleLabel.text = "\(i)"
+                cell.detailLabel.text = "\(i)"
+            }
+        }
+        
         stackScrollView.append(
-            views: [
-                labelCell,
-                switchCell,
-                labelFromTextCell,
-                textFieldCell,
-                ],
-            animated: true)
+            views: [labelFromTextCell] + [topCells, mediumCells, bottomCells].flatMap { $0 },
+            animated: false)
+        
+        stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        stackScrollView.frame = view.bounds
+        view.addSubview(stackScrollView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,7 +87,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var stackScrollView: StackScrollView!
+    private var stackScrollView = StackScrollView()
 }
 
 class LabelStackViewCell: UIView {
@@ -100,7 +121,7 @@ class LabelStackViewCell: UIView {
     let detailLabel = UILabel()
 }
 
-class SwitchStackViewCell: UIView {
+class SwitchStackViewCell: UIView, StackScrollViewCellType {
     
     var valueChanged: (Bool) -> Void = { _ in }
     
@@ -124,7 +145,7 @@ class SwitchStackViewCell: UIView {
     }
     
     override var intrinsicContentSize : CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: switchView.isOn ? 60 : 200)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -137,7 +158,8 @@ class SwitchStackViewCell: UIView {
     
     @objc fileprivate func switchValueChanged() {
         
-        valueChanged(switchView.isOn)
+        valueChanged(switchView.isOn)        
+        updateLayout(animated: true)
     }
 }
 
