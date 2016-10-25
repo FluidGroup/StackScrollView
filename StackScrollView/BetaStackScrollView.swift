@@ -31,8 +31,6 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         tableView.backgroundColor = UIColor.clear
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tableView.frame = bounds
-        tableView.separatorStyle = .none
-        tableView.separatorInset = .zero
         
         addSubview(tableView)
     }
@@ -40,8 +38,14 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         if superview != nil {
+            tableView.separatorStyle = .none
+            tableView.separatorColor = .clear
+            tableView.separatorInset = .zero
             tableView.delegate = self
             tableView.dataSource = self
+        } else {
+            tableView.delegate = nil
+            tableView.dataSource = nil
         }
     }
     
@@ -79,6 +83,8 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     private func createCell(view: UIView) -> UITableViewCell {
         let cell = UITableViewCell(frame: .zero)
         cell.separatorInset = .zero
+        cell.selectionStyle = .none
+        
         let contentView = cell.contentView
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(view)
