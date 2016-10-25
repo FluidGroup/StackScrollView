@@ -16,6 +16,7 @@
 		4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */; };
 		4B6C2DB91D8DA68E003D3A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */; };
 		4B6C2DBC1D8DA68E003D3A46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DBA1D8DA68E003D3A46 /* LaunchScreen.storyboard */; };
+		4BDB87D71DBFB49500E70D5B /* BetaStackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */; };
 		4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; };
 		4BE8B6EE1D8E5A9700A4DC33 /* StackScrollView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BE8B6F61D8E5AF200A4DC33 /* Then.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B6F51D8E5AF200A4DC33 /* Then.framework */; };
@@ -64,6 +65,7 @@
 		4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6C2DBB1D8DA68E003D3A46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B6C2DBD1D8DA68E003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetaStackScrollView.swift; sourceTree = "<group>"; };
 		4BE8B6F51D8E5AF200A4DC33 /* Then.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Then.framework; path = Carthage/Build/iOS/Then.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */,
+				4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */,
 				4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */,
 				4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */,
 				4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6C2DA71D8DA42A003D3A46 /* StackScrollViewCellType.swift in Sources */,
+				4BDB87D71DBFB49500E70D5B /* BetaStackScrollView.swift in Sources */,
 				4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

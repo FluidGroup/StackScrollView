@@ -51,14 +51,26 @@ class ViewController: UIViewController {
             }
         }
         
+        let cells = (0...50).map { i -> LabelStackViewCell in
+            LabelStackViewCell().then { cell in
+                cell.backgroundColor = colorA
+                cell.titleLabel.text = "\(i)"
+                cell.detailLabel.text = "\(i)"
+            }
+        }
+        
         stackScrollView.append(
             views: [
                 labelCell,
                 switchCell,
                 labelFromTextCell,
                 textFieldCell,
-                ],
-            animated: true)
+                ] + cells,
+            animated: false)
+        
+        stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        stackScrollView.frame = view.bounds
+        view.addSubview(stackScrollView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,7 +78,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var stackScrollView: StackScrollView!
+    private var stackScrollView = BetaStackScrollView()
 }
 
 class LabelStackViewCell: UIView {
