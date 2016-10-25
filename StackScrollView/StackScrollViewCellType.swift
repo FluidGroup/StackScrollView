@@ -29,7 +29,12 @@ public protocol StackScrollViewCellType: class {
 extension StackScrollViewCellType where Self: UIView {
     
     public var stackScrollView: StackScrollView {
-        let superview = self.superview?.superview?.superview        
+        var superview: UIView? = self
+        
+        while !(superview is StackScrollView) {
+            superview = superview?.superview
+        }
+        
         precondition(superview is StackScrollView, "Must be added StackScrollView")
         return superview as! StackScrollView
     }
