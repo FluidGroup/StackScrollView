@@ -48,4 +48,22 @@ extension StackScrollViewCellType where Self: UIView {
         
         stackScrollView.scroll(to: self, animated: animated)
     }
+    
+    public func updateLayout(animated: Bool) {
+        invalidateIntrinsicContentSize()
+        
+        if animated {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
+                self.stackScrollView.setNeedsLayout()
+                self.stackScrollView.layoutIfNeeded()
+            }) { (finish) in
+                
+            }
+        } else {
+            UIView.performWithoutAnimation {
+                stackScrollView.setNeedsLayout()
+                stackScrollView.layoutIfNeeded()
+            }
+        }
+    }
 }

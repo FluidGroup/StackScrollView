@@ -16,7 +16,6 @@
 		4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */; };
 		4B6C2DB91D8DA68E003D3A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */; };
 		4B6C2DBC1D8DA68E003D3A46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DBA1D8DA68E003D3A46 /* LaunchScreen.storyboard */; };
-		4BDB87D71DBFB49500E70D5B /* BetaStackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */; };
 		4BDB87D91DBFBC8F00E70D5B /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */; };
 		4BDB87DA1DBFBC8F00E70D5B /* RevealServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; };
@@ -270,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6C2DA71D8DA42A003D3A46 /* StackScrollViewCellType.swift in Sources */,
-				4BDB87D71DBFB49500E70D5B /* BetaStackScrollView.swift in Sources */,
 				4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

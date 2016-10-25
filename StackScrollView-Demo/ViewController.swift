@@ -87,7 +87,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private var stackScrollView = BetaStackScrollView()
+    private var stackScrollView = StackScrollView()
 }
 
 class LabelStackViewCell: UIView {
@@ -121,7 +121,7 @@ class LabelStackViewCell: UIView {
     let detailLabel = UILabel()
 }
 
-class SwitchStackViewCell: UIView, BetaStackScrollViewCellType {
+class SwitchStackViewCell: UIView, StackScrollViewCellType {
     
     var valueChanged: (Bool) -> Void = { _ in }
     
@@ -158,7 +158,7 @@ class SwitchStackViewCell: UIView, BetaStackScrollViewCellType {
     
     @objc fileprivate func switchValueChanged() {
         
-        valueChanged(switchView.isOn)
+        valueChanged(switchView.isOn)        
         updateLayout(animated: true)
     }
 }

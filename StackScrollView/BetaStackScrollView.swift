@@ -27,6 +27,7 @@ extension BetaStackScrollViewCellType where Self: UIView {
     }
     
     public func updateLayout(animated: Bool) {
+        // invalidateIntrinsicContentSize()
         stackScrollView.updateLayout(animated: animated)
     }
     
@@ -130,14 +131,20 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     private let tableView = UITableView(frame: .zero, style: .plain)
     
     public func updateLayout(animated: Bool) {
+            
+        cells.forEach {
+            $0.contentView.subviews.first?.invalidateIntrinsicContentSize()
+        }
+        
         if animated {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            })
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+           
         }else {
-            tableView.beginUpdates()
-            tableView.endUpdates()
+            UIView.performWithoutAnimation {
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
         }
     }
     
@@ -181,7 +188,6 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         let cell = cells[indexPath.row]
         
         let contentView = cell.contentView
-        contentView.invalidateIntrinsicContentSize()
         
         guard contentView.subviews.first?.isHidden == false else {
             return 0
