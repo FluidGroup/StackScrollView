@@ -8,8 +8,37 @@
 
 import Foundation
 
-public protocol _StackScrollViewCellType {
+public protocol BetaStackScrollViewCellType: class {
     
+}
+
+extension BetaStackScrollViewCellType where Self: UIView {
+    
+    public var stackScrollView: BetaStackScrollView {
+        
+        var superview: UIView? = self
+        
+        while !(superview is BetaStackScrollView) {
+            superview = superview?.superview
+        }
+        
+        precondition(superview is BetaStackScrollView, "Must be added StackScrollView")
+        return superview as! BetaStackScrollView
+    }
+    
+    public func updateLayout(animated: Bool) {
+        stackScrollView.updateLayout(animated: animated)
+    }
+    
+    public func set(isHidden: Bool, animated: Bool) {
+        
+        stackScrollView.setHidden(isHidden: isHidden, view: self, animated: animated)
+    }
+    
+    public func scrollToSelf(animated: Bool) {
+        
+        stackScrollView.scroll(to: self, animated: animated)
+    }
 }
 
 open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelegate {
@@ -55,6 +84,12 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         
         // TODO: Improve performance, animated
         tableView.reloadData()
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: { 
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
+        }
     }
     
     open func append(views: [UIView], animated: Bool) {
@@ -64,6 +99,7 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         cells += _cells
         // TODO: Improve performance, animated
         tableView.reloadData()
+        updateLayout(animated: animated)
     }
     
     open func remove(view: UIView, animated: Bool) {
@@ -74,11 +110,36 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
         
         // TODO: Improve performance, animated
         tableView.reloadData()
+        updateLayout(animated: animated)
+    }
+    
+    open func setHidden(isHidden: Bool, view: UIView, animated: Bool) {
+        
+        view.isHidden = isHidden
+        updateLayout(animated: animated)
+    }
+    
+    open func scroll(to view: UIView, animated: Bool) {
+        
+        let targetRect = view.convert(view.bounds, to: self)
+        tableView.scrollRectToVisible(targetRect, animated: true)
     }
     
     public var cells: [UITableViewCell] = []
     
     private let tableView = UITableView(frame: .zero, style: .plain)
+    
+    public func updateLayout(animated: Bool) {
+        if animated {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            })
+        }else {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+    }
     
     private func createCell(view: UIView) -> UITableViewCell {
         let cell = UITableViewCell(frame: .zero)
@@ -115,9 +176,17 @@ open class BetaStackScrollView: UIView, UITableViewDataSource, UITableViewDelega
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        // iOS8 Bugs
+        
         let cell = cells[indexPath.row]
         
         let contentView = cell.contentView
+        contentView.invalidateIntrinsicContentSize()
+        
+        guard contentView.subviews.first?.isHidden == false else {
+            return 0
+        }
+        
         let width = NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: tableView.bounds.width)
         
         NSLayoutConstraint.activate([width])

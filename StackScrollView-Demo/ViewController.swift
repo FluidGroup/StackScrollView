@@ -121,7 +121,7 @@ class LabelStackViewCell: UIView {
     let detailLabel = UILabel()
 }
 
-class SwitchStackViewCell: UIView {
+class SwitchStackViewCell: UIView, BetaStackScrollViewCellType {
     
     var valueChanged: (Bool) -> Void = { _ in }
     
@@ -145,7 +145,7 @@ class SwitchStackViewCell: UIView {
     }
     
     override var intrinsicContentSize : CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: switchView.isOn ? 60 : 200)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -159,6 +159,7 @@ class SwitchStackViewCell: UIView {
     @objc fileprivate func switchValueChanged() {
         
         valueChanged(switchView.isOn)
+        updateLayout(animated: true)
     }
 }
 
