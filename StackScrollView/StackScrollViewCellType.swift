@@ -23,47 +23,64 @@
 import UIKit
 
 public protocol StackScrollViewCellType: class {
-    
+
 }
 
 extension StackScrollViewCellType where Self: UIView {
-    
-    public var stackScrollView: StackScrollView {
-        var superview: UIView? = self
-        
-        while !(superview is StackScrollView) {
-            superview = superview?.superview
-        }
-        
-        precondition(superview is StackScrollView, "Must be added StackScrollView")
-        return superview as! StackScrollView
+
+  public var stackScrollView: StackScrollView {
+    var superview: UIView? = self
+
+    while !(superview is StackScrollView) {
+      superview = superview?.superview
     }
-    
-    public func setHidden(_ hidden: Bool, animated: Bool) {
+
+    precondition(superview is StackScrollView, "Must be added StackScrollView")
+    return superview as! StackScrollView
+  }
+
+  public func scrollToSelf(animated: Bool) {
+
+    stackScrollView.scroll(to: self, animated: animated)
+  }
+
+  public func updateLayout(animated: Bool) {
+    invalidateIntrinsicContentSize()
+
+    guard let collectionView = findCollectionView() else { return }
+
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [.beginFromCurrentState, .allowUserInteraction],
+        animations: {
+          collectionView.performBatchUpdates(nil, completion: nil)
+          self.layoutIfNeeded()
+          collectionView.layoutIfNeeded()
+      }) { (finish) in
         
-        stackScrollView.setHidden(hidden, view: self, animated: animated)        
+      }
+    } else {
+      UIView.performWithoutAnimation {
+        collectionView.performBatchUpdates(nil, completion: nil)
+        self.layoutIfNeeded()
+        collectionView.layoutIfNeeded()
+      }
     }
-    
-    public func scrollToSelf(animated: Bool) {
-        
-        stackScrollView.scroll(to: self, animated: animated)
+  }
+
+  private func findCollectionView() -> UICollectionView? {
+
+    func _find(view: UIView?) -> UICollectionView? {
+      if let c = view as? UICollectionView {
+        return c
+      }
+      return _find(view: view?.superview)
     }
-    
-    public func updateLayout(animated: Bool) {
-        invalidateIntrinsicContentSize()
-        
-        if animated {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
-                self.stackScrollView.setNeedsLayout()
-                self.stackScrollView.layoutIfNeeded()
-            }) { (finish) in
-                
-            }
-        } else {
-            UIView.performWithoutAnimation {
-                stackScrollView.setNeedsLayout()
-                stackScrollView.layoutIfNeeded()
-            }
-        }
-    }
+
+    return _find(view: superview)
+  }
 }

@@ -74,8 +74,7 @@ class ViewController: UIViewController {
         }
         
         stackScrollView.append(
-            views: [labelFromTextCell] + [topCells, mediumCells, bottomCells].flatMap { $0 },
-            animated: false)
+            views: [labelFromTextCell] + [topCells, mediumCells, bottomCells].flatMap { $0 })
         
         stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         stackScrollView.frame = view.bounds
