@@ -46,41 +46,6 @@ extension StackScrollViewCellType where Self: UIView {
 
   public func updateLayout(animated: Bool) {
     invalidateIntrinsicContentSize()
-
-    guard let collectionView = findCollectionView() else { return }
-
-    if animated {
-      UIView.animate(
-        withDuration: 0.5,
-        delay: 0,
-        usingSpringWithDamping: 1,
-        initialSpringVelocity: 0,
-        options: [.beginFromCurrentState, .allowUserInteraction],
-        animations: {
-          collectionView.performBatchUpdates(nil, completion: nil)
-          self.layoutIfNeeded()
-          collectionView.layoutIfNeeded()
-      }) { (finish) in
-        
-      }
-    } else {
-      UIView.performWithoutAnimation {
-        collectionView.performBatchUpdates(nil, completion: nil)
-        self.layoutIfNeeded()
-        collectionView.layoutIfNeeded()
-      }
-    }
-  }
-
-  private func findCollectionView() -> UICollectionView? {
-
-    func _find(view: UIView?) -> UICollectionView? {
-      if let c = view as? UICollectionView {
-        return c
-      }
-      return _find(view: view?.superview)
-    }
-
-    return _find(view: superview)
+    stackScrollView.updateLayout(animated: animated)
   }
 }

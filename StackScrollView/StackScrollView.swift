@@ -24,6 +24,14 @@ import UIKit
 
 open class StackScrollView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+  enum LayoutKeys {
+    static let top = "me.muukii.StackScrollView.top"
+    static let right = "me.muukii.StackScrollView.right"
+    static let left = "me.muukii.StackScrollView.left"
+    static let bottom = "me.muukii.StackScrollView.bottom"
+    static let width = "me.muukii.StackScrollView.width"
+  }
+
   fileprivate var views: [UIView] = []
 
   public convenience init() {
@@ -103,17 +111,36 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
 
-    cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-
     let view = views[indexPath.item]
+
+    if view.superview == cell.contentView {
+      return cell
+    }
+
+    cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+    cell.contentView.constraints.forEach {
+      $0.isActive = false
+    }
+
     view.translatesAutoresizingMaskIntoConstraints = false
+
     cell.contentView.addSubview(view)
 
+    let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+    let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
+    let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+    let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
+
+    top.identifier = LayoutKeys.top
+    right.identifier = LayoutKeys.right
+    bottom.identifier = LayoutKeys.bottom
+    left.identifier = LayoutKeys.left
+
     NSLayoutConstraint.activate([
-      view.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-      view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor),
-      view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-      view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor),
+      top,
+      right,
+      bottom,
+      left,
       ])
 
     return cell
@@ -121,18 +148,59 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-    var targetSize = UILayoutFittingCompressedSize
-    targetSize.width = collectionView.bounds.width
-
     let view = views[indexPath.item]
 
-    var size = view.systemLayoutSizeFitting(targetSize)
-    size.width = collectionView.bounds.width
+    let width: NSLayoutConstraint = {
 
+      guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
+        let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
+        width.identifier = LayoutKeys.width
+        width.isActive = true
+        return width
+      }
+
+      return c
+    }()
+
+    width.constant = collectionView.bounds.width
+
+    let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+    
+    assert(size.width == collectionView.bounds.width)
+    
     return size
   }
 
-  final class Cell: UICollectionViewCell {
+  public func updateLayout(animated: Bool) {
 
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: {
+          self.performBatchUpdates(nil, completion: nil)
+          self.layoutIfNeeded()
+      }) { (finish) in
+
+      }
+    } else {
+      UIView.performWithoutAnimation {
+        self.performBatchUpdates(nil, completion: nil)
+        self.layoutIfNeeded()
+      }
+    }
+  }
+  
+  final class Cell: UICollectionViewCell {
+    
   }
 }
