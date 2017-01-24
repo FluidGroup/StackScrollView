@@ -123,6 +123,8 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
 
     view.translatesAutoresizingMaskIntoConstraints = false
+//    cell.contentView.translatesAutoresizingMaskIntoConstraints = false
+    cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     cell.contentView.addSubview(view)
 

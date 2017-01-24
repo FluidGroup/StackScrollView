@@ -10,7 +10,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		3yuCXIz4oBBkDOLogLf3z8EtWn0=
+		ZBdRultRkrY9QndsYdM1y/SsASs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Scripts/copy_and_codesign_revealserver.sh</key>
 		<data>
-		aQbLdf9lVnmDd2BfBMGsVPBPdb8=
+		yB2zXTggmRD0rra2Hbpxn2zfCRo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -49,11 +49,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aQbLdf9lVnmDd2BfBMGsVPBPdb8=
+			yB2zXTggmRD0rra2Hbpxn2zfCRo=
 			</data>
 			<key>hash2</key>
 			<data>
-			UYSfYiTYxoDhVX7UwCYvPXGOWQ4Yrm5DzFoomMlSIMs=
+			SL0x5cGSOyS1RcojHFEmFX5IDfon/vO37cFsjSIX7LA=
 			</data>
 		</dict>
 	</dict>
@@ -74,6 +74,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^version.plist$</key>
 		<true/>
@@ -119,6 +124,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^Info\.plist$</key>
 		<dict>
