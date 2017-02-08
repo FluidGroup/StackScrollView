@@ -31,7 +31,7 @@ extension StackScrollViewCellType where Self: UIView {
   public var stackScrollView: StackScrollView? {
     var superview: UIView? = self
 
-    while !(superview is StackScrollView) {
+    while superview != nil && !(superview is StackScrollView) {
       superview = superview?.superview
     }
 
