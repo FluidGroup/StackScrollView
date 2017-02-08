@@ -28,24 +28,23 @@ public protocol StackScrollViewCellType: class {
 
 extension StackScrollViewCellType where Self: UIView {
 
-  public var stackScrollView: StackScrollView {
+  public var stackScrollView: StackScrollView? {
     var superview: UIView? = self
 
     while !(superview is StackScrollView) {
       superview = superview?.superview
     }
 
-    precondition(superview is StackScrollView, "Must be added StackScrollView")
-    return superview as! StackScrollView
+    return superview as? StackScrollView
   }
 
   public func scrollToSelf(animated: Bool) {
 
-    stackScrollView.scroll(to: self, animated: animated)
+    stackScrollView?.scroll(to: self, animated: animated)
   }
 
   public func updateLayout(animated: Bool) {
     invalidateIntrinsicContentSize()
-    stackScrollView.updateLayout(animated: animated)
+    stackScrollView?.updateLayout(animated: animated)
   }
 }
