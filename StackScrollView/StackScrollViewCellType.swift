@@ -43,6 +43,10 @@ extension StackScrollViewCellType where Self: UIView {
     stackScrollView?.scroll(to: self, animated: animated)
   }
 
+  public func scrollToSelf(at position: UICollectionViewScrollPosition, animated: Bool) {
+    stackScrollView?.scroll(to: self, at: position, animated: animated)
+  }
+
   public func updateLayout(animated: Bool) {
     invalidateIntrinsicContentSize()
     stackScrollView?.updateLayout(animated: animated)

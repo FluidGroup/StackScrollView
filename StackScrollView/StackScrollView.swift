@@ -60,7 +60,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     register(Cell.self, forCellWithReuseIdentifier: "Cell")
     alwaysBounceVertical = true
     delaysContentTouches = false
-    keyboardDismissMode = .onDrag
+    keyboardDismissMode = .interactive
     backgroundColor = .white
 
     delegate = self
@@ -93,6 +93,12 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
     let targetRect = view.convert(view.bounds, to: self)
     scrollRectToVisible(targetRect, animated: true)
+  }
+
+  open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
+    if let index = views.index(of: view) {
+      scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
+    }
   }
 
   open override func touchesShouldCancel(in view: UIView) -> Bool {
@@ -203,6 +209,9 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
   
   final class Cell: UICollectionViewCell {
-    
+
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+      return layoutAttributes
+    }
   }
 }
