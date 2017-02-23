@@ -32,7 +32,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     static let width = "me.muukii.StackScrollView.width"
   }
 
-  fileprivate var views: [UIView] = []
+  private(set) open var views: [UIView] = []
 
   public convenience init() {
     self.init(frame: .zero)
