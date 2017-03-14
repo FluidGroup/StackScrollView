@@ -32,7 +32,11 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     static let width = "me.muukii.StackScrollView.width"
   }
 
-  private(set) open var views: [UIView] = []
+  open var views: [UIView] {
+    return source.map { $0.0 }
+  }
+
+  private var source: [(UIView, String)] = []
 
   public convenience init() {
     self.init(frame: .zero)
@@ -69,22 +73,26 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func append(view: UIView) {
 
-    views.append(view)
+    let key = UUID().uuidString
+    source.append((view, key))
+
+    register(Cell.self, forCellWithReuseIdentifier: key)
 
     reloadData()
   }
 
   open func append(views: [UIView]) {
 
-    self.views += views
+    views.forEach {
+      append(view: $0)
+    }
 
-    reloadData()
   }
 
   open func remove(view: UIView, animated: Bool) {
 
-    if let index = views.index(of: view) {
-      views.remove(at: index)
+    if let index = source.map({ $0.0 }).index(of: view) {
+      source.remove(at: index)
       view.removeFromSuperview()
     }
   }
@@ -96,7 +104,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
 
   open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
-    if let index = views.index(of: view) {
+    if let index = source.map({ $0.0 }).index(of: view) {
       scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
   }
@@ -110,14 +118,14 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
 
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return views.count
+    return source.count
   }
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: source[indexPath.item].1, for: indexPath)
 
-    let view = views[indexPath.item]
+    let view = source[indexPath.item].0
 
     if view.superview == cell.contentView {
       return cell
@@ -129,7 +137,6 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
 
     view.translatesAutoresizingMaskIntoConstraints = false
-//    cell.contentView.translatesAutoresizingMaskIntoConstraints = false
     cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     cell.contentView.addSubview(view)
@@ -156,7 +163,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-    let view = views[indexPath.item]
+    let view = source[indexPath.item].0
 
     let width: NSLayoutConstraint = {
 
