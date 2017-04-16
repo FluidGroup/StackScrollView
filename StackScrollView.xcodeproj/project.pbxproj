@@ -10,7 +10,6 @@
 		4B6C2D9E1D8DA3FB003D3A46 /* StackScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */; };
 		4B6C2DA71D8DA42A003D3A46 /* StackScrollViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */; };
-		4B6C2DAA1D8DA439003D3A46 /* EasyPeasy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */; };
 		4B6C2DB21D8DA68E003D3A46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB11D8DA68E003D3A46 /* AppDelegate.swift */; };
 		4B6C2DB41D8DA68E003D3A46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB31D8DA68E003D3A46 /* ViewController.swift */; };
 		4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */; };
@@ -67,7 +66,6 @@
 		4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6C2DBB1D8DA68E003D3A46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B6C2DBD1D8DA68E003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetaStackScrollView.swift; sourceTree = "<group>"; };
 		4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
 		4BE8B6F51D8E5AF200A4DC33 /* Then.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Then.framework; path = Carthage/Build/iOS/Then.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6C2DAA1D8DA439003D3A46 /* EasyPeasy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */,
-				4BDB87D61DBFB49500E70D5B /* BetaStackScrollView.swift */,
 				4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */,
 				4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */,
 				4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */,
@@ -353,7 +349,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -400,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -5,28 +5,12 @@
 [![License](https://img.shields.io/cocoapods/l/StackScrollView.svg?style=flat)](http://cocoapods.org/pods/StackScrollView)
 [![Platform](https://img.shields.io/cocoapods/p/StackScrollView.svg?style=flat)](http://cocoapods.org/pods/StackScrollView)
 
-**Very Scalable** iOS form builder with **UIScrollView**
+## What is this?
 
-**Work in progress**
+StackScrollView builds form UI easily.
 
-- StackScrollView (Core) this repository
-    - UI Components (child repository) [StackScrollViewComponents](https://github.com/muukii/StackScrollViewComponents)
-
-sample screenshot
-this sample -> [StackScrollViewComponents](https://github.com/muukii/StackScrollViewComponents)
-
-<img src="shot.png" width=375>
-
-## Requirements
-
-## Installation
-
-StackScrollView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "StackScrollView"
-```
+StackScrollView has internal UICollectionView.
+Internal CollectionView calculates size of view by AutoLayout, then that display.
 
 ## Author
 

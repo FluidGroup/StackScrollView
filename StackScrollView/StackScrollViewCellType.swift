@@ -23,47 +23,36 @@
 import UIKit
 
 public protocol StackScrollViewCellType: class {
-    
+
 }
 
 extension StackScrollViewCellType where Self: UIView {
-    
-    public var stackScrollView: StackScrollView {
-        var superview: UIView? = self
-        
-        while !(superview is StackScrollView) {
-            superview = superview?.superview
-        }
-        
-        precondition(superview is StackScrollView, "Must be added StackScrollView")
-        return superview as! StackScrollView
+
+  public var stackScrollView: StackScrollView? {
+    var superview: UIView? = self
+
+    while superview != nil && !(superview is StackScrollView) {
+      superview = superview?.superview
     }
-    
-    public func setHidden(_ hidden: Bool, animated: Bool) {
-        
-        stackScrollView.setHidden(hidden, view: self, animated: animated)        
-    }
-    
-    public func scrollToSelf(animated: Bool) {
-        
-        stackScrollView.scroll(to: self, animated: animated)
-    }
-    
-    public func updateLayout(animated: Bool) {
-        invalidateIntrinsicContentSize()
-        
-        if animated {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
-                self.stackScrollView.setNeedsLayout()
-                self.stackScrollView.layoutIfNeeded()
-            }) { (finish) in
-                
-            }
-        } else {
-            UIView.performWithoutAnimation {
-                stackScrollView.setNeedsLayout()
-                stackScrollView.layoutIfNeeded()
-            }
-        }
-    }
+
+    return superview as? StackScrollView
+  }
+
+  public func scrollToSelf(animated: Bool) {
+
+    stackScrollView?.scroll(to: self, animated: animated)
+  }
+
+  public func scrollToSelf(at position: UICollectionViewScrollPosition, animated: Bool) {
+    stackScrollView?.scroll(to: self, at: position, animated: animated)
+  }
+
+  public func updateLayout(animated: Bool) {
+    invalidateIntrinsicContentSize()
+    stackScrollView?.updateLayout(animated: animated)
+  }
+
+  public func remove() {
+    stackScrollView?.remove(view: self, animated: true)
+  }
 }

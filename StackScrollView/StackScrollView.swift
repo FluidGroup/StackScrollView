@@ -22,215 +22,226 @@
 
 import UIKit
 
-import EasyPeasy
+open class StackScrollView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-open class StackScrollView: UIScrollView {
-    
-    public override init(frame: CGRect) {
-        
-        super.init(frame: frame)
-        setup()
+  enum LayoutKeys {
+    static let top = "me.muukii.StackScrollView.top"
+    static let right = "me.muukii.StackScrollView.right"
+    static let left = "me.muukii.StackScrollView.left"
+    static let bottom = "me.muukii.StackScrollView.bottom"
+    static let width = "me.muukii.StackScrollView.width"
+  }
+
+  open var views: [UIView] {
+    return source
+  }
+
+  private var source: [UIView] = []
+
+  public convenience init() {
+    self.init(frame: .zero)
+  }
+
+  public init(frame: CGRect) {
+
+    let layout = UICollectionViewFlowLayout()
+    layout.minimumLineSpacing = 0
+    layout.minimumInteritemSpacing = 0
+    layout.sectionInset = .zero
+
+    super.init(frame: frame, collectionViewLayout: layout)
+    setup()
+  }
+
+  public required init?(coder aDecoder: NSCoder) {
+
+    super.init(coder: aDecoder)
+    setup()
+  }
+
+  open func setup() {
+
+    register(Cell.self, forCellWithReuseIdentifier: "Cell")
+    alwaysBounceVertical = true
+    delaysContentTouches = false
+    keyboardDismissMode = .interactive
+    backgroundColor = .white
+
+    delegate = self
+    dataSource = self
+  }
+
+  open func append(view: UIView) {
+
+    source.append(view)
+    reloadData()
+  }
+
+  open func append(views: [UIView]) {
+
+    views.forEach {
+      append(view: $0)
     }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    open func setup() {
-        
-        contentView.backgroundColor = UIColor.clear
-        addSubview(contentView)
-        
-        alwaysBounceVertical = true
-        delaysContentTouches = false
-        keyboardDismissMode = .onDrag
-        
-        contentView <- [
-            Edges(),
-            Width().like(self, .width),
-        ]
-    }
-    
-    open func append(view: UIView, animated: Bool) {
-        
-        views.append(view)
-        updateVerticalLayout(animated: animated)
-    }
-    
-    open func append(views: [UIView], animated: Bool) {
-        
-        self.views += views
-        updateVerticalLayout(animated: animated)
-    }
-    
-    open func remove(view: UIView, animated: Bool) {
-        
-        if let index = views.index(of: view) {
-            views.remove(at: index)
-            view.removeFromSuperview()
+
+  }
+
+  open func remove(view: UIView, animated: Bool) {
+
+    if let index = source.index(of: view) {
+      source.remove(at: index)
+      if animated {
+        UIView.animate(
+          withDuration: 0.5,
+          delay: 0,
+          usingSpringWithDamping: 1,
+          initialSpringVelocity: 0,
+          options: [
+            .beginFromCurrentState,
+            .allowUserInteraction,
+            .overrideInheritedCurve,
+            .overrideInheritedOptions,
+            .overrideInheritedDuration
+          ],
+          animations: {
+            self.performBatchUpdates({
+              self.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+            }, completion: nil)
+        }) { (finish) in
+          
         }
-        updateVerticalLayout(animated: animated)
-    }
-    
-    open func setHidden(_ hidden: Bool, view: UIView, animated: Bool) {
-        
-        func perform() {
-            if hidden {
-                view.superview! <- [
-                    Height(0)
-                ]
-            } else {
-                
-                NSLayoutConstraint.deactivate(
-                    view.superview! <- [
-                        Height(0)
-                    ]
-                )                                
-            }
+
+      } else {
+        UIView.performWithoutAnimation {
+          performBatchUpdates({
+            self.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+          }, completion: nil)
         }
-        
-        if animated {
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
-                
-                perform()
-                self.layoutIfNeeded()
-                
-            }) { (finish) in
-                
-            }
-        } else {
-            perform()
-        }
+      }
     }
-    
-    open func scroll(to view: UIView, animated: Bool) {
-        
-        let targetRect = view.convert(view.bounds, to: self)
-        scrollRectToVisible(targetRect, animated: true)
+  }
+
+  open func scroll(to view: UIView, animated: Bool) {
+
+    let targetRect = view.convert(view.bounds, to: self)
+    scrollRectToVisible(targetRect, animated: true)
+  }
+
+  open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
+    if let index = source.index(of: view) {
+      scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
-    
-    open override func touchesShouldCancel(in view: UIView) -> Bool {
-        return true
+  }
+
+  open override func touchesShouldCancel(in view: UIView) -> Bool {
+    return true
+  }
+
+  public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return source.count
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+
+    let view = source[indexPath.item]
+
+    if view.superview == cell.contentView {
+      return cell
     }
-    
-    fileprivate func updateVerticalLayout(animated: Bool) {
-                
-        func perform() {
-            
-            guard views.count > 0 else {
-                return
-            }
-            
-            if views.count == 1 {
-                
-                let firstView = views.first!
-                addSubViewToContainerViewIfNeeded(firstView) <- [
-                    Edges(),
-                ]
-                
-                return
-            }
-            
-            if views.count == 2 {
-                let firstView = views.first!
-                let lastView = views.last!
-                
-                let lastContainerView = addSubViewToContainerViewIfNeeded(lastView)                                
-                let firstContainerView = addSubViewToContainerViewIfNeeded(firstView)
-                
-                firstContainerView <- [
-                    Top(),
-                    Right(),
-                    Left(),
-                    Bottom().to(lastContainerView, .top),
-                ]
-                
-                lastContainerView <- [
-                    Right(),
-                    Left(),
-                    Bottom(),
-                ]
-                
-                
-                return
-            }
-            
-            if views.count >= 3 {
-                
-                var _views = views
-                
-                let firstView = _views.removeFirst()
-                let lastView = _views.removeLast()
-                
-                let firstContainerView = addSubViewToContainerViewIfNeeded(firstView)
-                let lastContainerView = addSubViewToContainerViewIfNeeded(lastView)
-                
-                firstContainerView <- [
-                    Top(),
-                    Right(),
-                    Left(),
-                ]
-                
-                var _topContainerView: UIView = firstView
-                
-                for view in _views {
-                    
-                    let containerView = addSubViewToContainerViewIfNeeded(view)
-                    
-                    containerView <- [
-                        Top().to(_topContainerView, .bottom),
-                        Right(),
-                        Left(),
-                    ]
-                    _topContainerView = containerView
-                }
-                
-                lastContainerView <- [
-                    Top().to(_topContainerView, .bottom),
-                    Right(),
-                    Left(),
-                    Bottom(),
-                ]
-            }
-        }
-                       
-        if animated {
-            
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
-                
-                perform()
-                self.layoutIfNeeded()
-                
-            }) { (finish) in
-                
-            }
-        } else {
-            perform()
-        }
+
+    cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+    cell.contentView.constraints.forEach {
+      $0.isActive = false
     }
+
+    view.translatesAutoresizingMaskIntoConstraints = false
+    cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+    cell.contentView.addSubview(view)
+
+    let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+    let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
+    let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+    let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
+
+    top.identifier = LayoutKeys.top
+    right.identifier = LayoutKeys.right
+    bottom.identifier = LayoutKeys.bottom
+    left.identifier = LayoutKeys.left
+
+    NSLayoutConstraint.activate([
+      top,
+      right,
+      bottom,
+      left,
+      ])
+
+    return cell
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    let view = source[indexPath.item]
+
+    let width: NSLayoutConstraint = {
+
+      guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
+        let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
+        width.identifier = LayoutKeys.width
+        width.isActive = true
+        return width
+      }
+
+      return c
+    }()
+
+    width.constant = collectionView.bounds.width
+
+    let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     
-    fileprivate var views: [UIView] = []
+    assert(size.width == collectionView.bounds.width)
     
-    fileprivate let contentView = UIView()
-    
-    fileprivate func addSubViewToContainerViewIfNeeded(_ view: UIView) -> UIView {
-        if view.superview == nil {
-            let containerView = UIView()
-            containerView.isOpaque = true
-            containerView.backgroundColor = UIColor.clear
-            containerView.clipsToBounds = true
-            containerView.addSubview(view)
-            view <- [
-                Top().with(.mediumPriority),
-                Right(),
-                Bottom().with(.mediumPriority),
-                Left(),
-            ]
-            contentView.addSubview(containerView)
-        }
-        return view.superview!
+    return size
+  }
+
+  public func updateLayout(animated: Bool) {
+
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: {
+          self.performBatchUpdates(nil, completion: nil)
+          self.layoutIfNeeded()
+      }) { (finish) in
+
+      }
+    } else {
+      UIView.performWithoutAnimation {
+        self.performBatchUpdates(nil, completion: nil)
+        self.layoutIfNeeded()
+      }
     }
+  }
+  
+  final class Cell: UICollectionViewCell {
+
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+      return layoutAttributes
+    }
+  }
 }
