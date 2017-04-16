@@ -1,14 +1,6 @@
-#
-# Be sure to run `pod lib lint StackScrollView.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = 'StackScrollView'
-  s.version          = '0.2.0'
+  s.version          = '0.5.0'
   s.summary          = 'Scalable form builder with UIScrollView'
   s.homepage         = 'https://github.com/muukii/StackScrollView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -18,6 +10,5 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.source_files = 'StackScrollView/**/*'
-  s.dependency 'EasyPeasy'
 
 end
