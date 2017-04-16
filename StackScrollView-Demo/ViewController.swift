@@ -89,13 +89,20 @@ class ViewController: UIViewController {
   private var stackScrollView = StackScrollView()
 }
 
-class LabelStackViewCell: UIView {
+class LabelStackViewCell: UIView, StackScrollViewCellType {
+
+  let button = UIButton(type: .system)
+  let titleLabel = UILabel()
+  let detailLabel = UILabel()
 
   init() {
     super.init(frame: .zero)
 
+    button.setTitle("Remove", for: .normal)
+
     addSubview(titleLabel)
     addSubview(detailLabel)
+    addSubview(button)
 
     titleLabel <- [
       Left(8),
@@ -106,6 +113,13 @@ class LabelStackViewCell: UIView {
       Right(8),
       CenterY(),
     ]
+
+    button <- [
+      CenterX(),
+      CenterY(),
+    ]
+
+    button.addTarget(self, action: #selector(tap), for: .touchUpInside)
   }
 
   override var intrinsicContentSize : CGSize {
@@ -116,8 +130,10 @@ class LabelStackViewCell: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  let titleLabel = UILabel()
-  let detailLabel = UILabel()
+  @objc private func tap() {
+
+    remove()
+  }
 }
 
 class SwitchStackViewCell: UIView, StackScrollViewCellType {
@@ -157,10 +173,10 @@ class SwitchStackViewCell: UIView, StackScrollViewCellType {
     ]
 
     label <- [
-      Top().with(.mediumPriority),
+      Top().with(.medium),
       Right(),
       Left(),
-      Bottom().with(.mediumPriority),
+      Bottom().with(.medium),
       CenterY(),
     ]
 

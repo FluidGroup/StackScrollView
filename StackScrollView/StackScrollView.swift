@@ -33,10 +33,10 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
 
   open var views: [UIView] {
-    return source.map { $0.0 }
+    return source
   }
 
-  private var source: [(UIView, String)] = []
+  private var source: [UIView] = []
 
   public convenience init() {
     self.init(frame: .zero)
@@ -73,11 +73,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func append(view: UIView) {
 
-    let key = UUID().uuidString
-    source.append((view, key))
-
-    register(Cell.self, forCellWithReuseIdentifier: key)
-
+    source.append(view)
     reloadData()
   }
 
@@ -91,9 +87,36 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func remove(view: UIView, animated: Bool) {
 
-    if let index = source.map({ $0.0 }).index(of: view) {
+    if let index = source.index(of: view) {
       source.remove(at: index)
-      view.removeFromSuperview()
+      if animated {
+        UIView.animate(
+          withDuration: 0.5,
+          delay: 0,
+          usingSpringWithDamping: 1,
+          initialSpringVelocity: 0,
+          options: [
+            .beginFromCurrentState,
+            .allowUserInteraction,
+            .overrideInheritedCurve,
+            .overrideInheritedOptions,
+            .overrideInheritedDuration
+          ],
+          animations: {
+            self.performBatchUpdates({
+              self.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+            }, completion: nil)
+        }) { (finish) in
+          
+        }
+
+      } else {
+        UIView.performWithoutAnimation {
+          performBatchUpdates({
+            self.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+          }, completion: nil)
+        }
+      }
     }
   }
 
@@ -104,7 +127,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
 
   open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
-    if let index = source.map({ $0.0 }).index(of: view) {
+    if let index = source.index(of: view) {
       scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
   }
@@ -123,9 +146,9 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: source[indexPath.item].1, for: indexPath)
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
 
-    let view = source[indexPath.item].0
+    let view = source[indexPath.item]
 
     if view.superview == cell.contentView {
       return cell
@@ -163,7 +186,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-    let view = source[indexPath.item].0
+    let view = source[indexPath.item]
 
     let width: NSLayoutConstraint = {
 

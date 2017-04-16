@@ -51,4 +51,8 @@ extension StackScrollViewCellType where Self: UIView {
     invalidateIntrinsicContentSize()
     stackScrollView?.updateLayout(animated: animated)
   }
+
+  public func remove() {
+    stackScrollView?.remove(view: self, animated: true)
+  }
 }
