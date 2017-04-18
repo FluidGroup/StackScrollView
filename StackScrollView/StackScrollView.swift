@@ -48,6 +48,12 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     layout.minimumLineSpacing = 0
     layout.minimumInteritemSpacing = 0
     layout.sectionInset = .zero
+    
+    if #available(iOS 10.0, *) {
+      layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
+    } else {
+      layout.estimatedItemSize = CGSize(width: 320, height: 44)
+    }
 
     super.init(frame: frame, collectionViewLayout: layout)
     setup()
@@ -103,9 +109,12 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
             .overrideInheritedDuration
           ],
           animations: {
-            self.performBatchUpdates({
+//            self.performBatchUpdates({
               self.deleteItems(at: [IndexPath.init(item: index, section: 0)])
-            }, completion: nil)
+              let c = UICollectionViewFlowLayoutInvalidationContext()
+              c.invalidateFlowLayoutAttributes = false
+              self.collectionViewLayout.invalidateLayout(with: c)
+//            }, completion: nil)
         }) { (finish) in
           
         }
@@ -146,7 +155,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
 
     let view = source[indexPath.item]
 
@@ -155,15 +164,17 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
 
     cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-    cell.contentView.constraints.forEach {
-      $0.isActive = false
-    }
+//    cell.contentView.constraints.forEach {
+//      $0.isActive = false
+//    }
 
+    cell.contentView.translatesAutoresizingMaskIntoConstraints = false
     view.translatesAutoresizingMaskIntoConstraints = false
-    cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     cell.contentView.addSubview(view)
-
+    
+    cell.set(width: collectionView.bounds.width)
+    
     let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
     let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
     let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
@@ -183,32 +194,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
     return cell
   }
-
-  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-    let view = source[indexPath.item]
-
-    let width: NSLayoutConstraint = {
-
-      guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
-        let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
-        width.identifier = LayoutKeys.width
-        width.isActive = true
-        return width
-      }
-
-      return c
-    }()
-
-    width.constant = collectionView.bounds.width
-
-    let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-    
-    assert(size.width == collectionView.bounds.width)
-    
-    return size
-  }
-
+  
   public func updateLayout(animated: Bool) {
 
     if animated {
@@ -225,23 +211,40 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           .overrideInheritedDuration
         ],
         animations: {
-          self.performBatchUpdates(nil, completion: nil)
+
+          let c = UICollectionViewFlowLayoutInvalidationContext()
+          c.invalidateFlowLayoutAttributes = false
+          self.collectionViewLayout.invalidateLayout(with: c)
           self.layoutIfNeeded()
       }) { (finish) in
 
       }
     } else {
       UIView.performWithoutAnimation {
-        self.performBatchUpdates(nil, completion: nil)
+        let c = UICollectionViewFlowLayoutInvalidationContext()
+        c.invalidateFlowLayoutAttributes = false
+        self.collectionViewLayout.invalidateLayout(with: c)
         self.layoutIfNeeded()
       }
     }
   }
   
   final class Cell: UICollectionViewCell {
-
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-      return layoutAttributes
+    
+    var widthConstraint: NSLayoutConstraint?
+    
+    func set(width: CGFloat) {
+      if let widthConstraint = widthConstraint {
+        widthConstraint.constant = width
+      } else {
+        widthConstraint = contentView.widthAnchor.constraint(equalToConstant: width)
+      }
+      
+      widthConstraint?.isActive = true
     }
+
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//      return layoutAttributes
+//    }
   }
 }
