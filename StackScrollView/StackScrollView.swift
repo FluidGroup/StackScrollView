@@ -42,6 +42,26 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
   
   private let collectionView: InternalCollectionView
   
+  open var contentInset: UIEdgeInsets {
+    get {
+      return collectionView.contentInset
+    }
+    set {
+      collectionView.contentInset = newValue
+    }
+  }
+  
+  open var scrollIndicatorInsets: UIEdgeInsets {
+    get {
+      return collectionView.scrollIndicatorInsets
+    }
+    set {
+      collectionView.scrollIndicatorInsets = newValue
+    }
+  }
+  
+  // MARK: - Initializers
+  
   public init(frame: CGRect, collectionViewLayout: UICollectionViewFlowLayout) {
     collectionView = InternalCollectionView(frame: frame, collectionViewLayout: collectionViewLayout)
     super.init(frame: frame)
@@ -68,6 +88,8 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
   
   private func setup() {
     
+    backgroundColor = .white
+    
     addSubview(collectionView)
     collectionView.frame = bounds
     collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -75,7 +97,7 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
     collectionView.alwaysBounceVertical = true
     collectionView.delaysContentTouches = false
     collectionView.keyboardDismissMode = .interactive
-    collectionView.backgroundColor = .white
+    collectionView.backgroundColor = .clear
     
     collectionView.delegate = self
     collectionView.dataSource = self
