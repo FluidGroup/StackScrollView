@@ -24,6 +24,12 @@ class ViewController: UIViewController {
     
     views.append(MarginStackCell(height: 96, backgroundColor: marginColor))
     
+    views.append(HeaderStackCell(title: "LabelStackCell", backgroundColor: marginColor))
+
+    views.append(LabelStackCell(title: "Label"))
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
     views.append(HeaderStackCell(title: "TextFieldStackCell", backgroundColor: marginColor))
     
     views.append(fullSeparator())

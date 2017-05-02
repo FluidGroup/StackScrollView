@@ -16,18 +16,20 @@ final class LabelStackCell: StackCellBase {
   
   private let label = UILabel()
   
-  override init() {
+  init(title: String) {
     super.init()
     
     addSubview(label)
-    label <- Edges(UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+    label.translatesAutoresizingMaskIntoConstraints = false
     
-    self <- Height(>=40)
+    label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 8).isActive = true
+    label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 8).isActive = true
+    label.rightAnchor.constraint(equalTo: rightAnchor, constant: 8).isActive = true
+    label.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
+    label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    heightAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
     
     label.font = UIFont.preferredFont(forTextStyle: .body)
-  }
-  
-  func set(value: String) {
-    label.text = value
+    label.text = title
   }
 }
