@@ -9,20 +9,27 @@
 /* Begin PBXBuildFile section */
 		4B6C2D9E1D8DA3FB003D3A46 /* StackScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */; };
-		4B6C2DA71D8DA42A003D3A46 /* StackScrollViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */; };
+		4B6C2DA71D8DA42A003D3A46 /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA51D8DA42A003D3A46 /* StackCellType.swift */; };
 		4B6C2DB21D8DA68E003D3A46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB11D8DA68E003D3A46 /* AppDelegate.swift */; };
 		4B6C2DB41D8DA68E003D3A46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB31D8DA68E003D3A46 /* ViewController.swift */; };
 		4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB51D8DA68E003D3A46 /* Main.storyboard */; };
 		4B6C2DB91D8DA68E003D3A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */; };
 		4B6C2DBC1D8DA68E003D3A46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C2DBA1D8DA68E003D3A46 /* LaunchScreen.storyboard */; };
-		4BDB87D91DBFBC8F00E70D5B /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */; };
-		4BDB87DA1DBFBC8F00E70D5B /* RevealServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B83ACCD1EB7C00700F92569 /* DatePickerStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACCC1EB7C00700F92569 /* DatePickerStackCell.swift */; };
+		4B83ACCF1EB7C00E00F92569 /* LabelStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACCE1EB7C00E00F92569 /* LabelStackCell.swift */; };
+		4B83ACD11EB7C01600F92569 /* SeparatorStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACD01EB7C01600F92569 /* SeparatorStackCell.swift */; };
+		4B83ACD31EB7C02000F92569 /* TextViewStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACD21EB7C02000F92569 /* TextViewStackCell.swift */; };
+		4B83ACD51EB7C02C00F92569 /* SwitchStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACD41EB7C02C00F92569 /* SwitchStackCell.swift */; };
+		4B83ACD71EB7C0C500F92569 /* ButtonStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACD61EB7C0C500F92569 /* ButtonStackCell.swift */; };
+		4B83ACD91EB7C0CB00F92569 /* MarginStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACD81EB7C0CB00F92569 /* MarginStackCell.swift */; };
+		4B83ACDB1EB7C20700F92569 /* StackCellBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACDA1EB7C20700F92569 /* StackCellBase.swift */; };
+		4B83ACDD1EB8578400F92569 /* HeaderStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACDC1EB8578400F92569 /* HeaderStackCell.swift */; };
+		4B83ACDF1EB8580F00F92569 /* TextFieldStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACDE1EB8580F00F92569 /* TextFieldStackCell.swift */; };
+		4B83ACE11EB85EB200F92569 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACE01EB85EB200F92569 /* TapStackCell.swift */; };
+		4B83ACE31EB8756800F92569 /* StackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B83ACE21EB8756800F92569 /* StackCell.swift */; };
 		4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; };
 		4BE8B6EE1D8E5A9700A4DC33 /* StackScrollView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4BE8B6F61D8E5AF200A4DC33 /* Then.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B6F51D8E5AF200A4DC33 /* Then.framework */; };
-		4BE8B6F71D8E5AF200A4DC33 /* Then.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE8B6F51D8E5AF200A4DC33 /* Then.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4BE8B6F81D8E5B3500A4DC33 /* EasyPeasy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */; };
-		4BE8B6F91D8E5B3500A4DC33 /* EasyPeasy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E10463014A8095D5EC331C8 /* Pods_StackScrollView_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB7BDA1DD524C3580ED5E34 /* Pods_StackScrollView_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +49,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4BDB87DA1DBFBC8F00E70D5B /* RevealServer.framework in Embed Frameworks */,
-				4BE8B6F91D8E5B3500A4DC33 /* EasyPeasy.framework in Embed Frameworks */,
 				4BE8B6EE1D8E5A9700A4DC33 /* StackScrollView.framework in Embed Frameworks */,
-				4BE8B6F71D8E5AF200A4DC33 /* Then.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,11 +57,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		107B190065E8096D8802EE36 /* Pods-StackScrollView-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackScrollView-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StackScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackScrollView.h; sourceTree = "<group>"; };
 		4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
-		4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackScrollViewCellType.swift; sourceTree = "<group>"; };
+		4B6C2DA51D8DA42A003D3A46 /* StackCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCellType.swift; sourceTree = "<group>"; };
 		4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyPeasy.framework; path = Carthage/Build/iOS/EasyPeasy.framework; sourceTree = "<group>"; };
 		4B6C2DAF1D8DA68E003D3A46 /* StackScrollView-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StackScrollView-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6C2DB11D8DA68E003D3A46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,8 +71,21 @@
 		4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6C2DBB1D8DA68E003D3A46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B6C2DBD1D8DA68E003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
+		4B83ACCC1EB7C00700F92569 /* DatePickerStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerStackCell.swift; sourceTree = "<group>"; };
+		4B83ACCE1EB7C00E00F92569 /* LabelStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelStackCell.swift; sourceTree = "<group>"; };
+		4B83ACD01EB7C01600F92569 /* SeparatorStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorStackCell.swift; sourceTree = "<group>"; };
+		4B83ACD21EB7C02000F92569 /* TextViewStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewStackCell.swift; sourceTree = "<group>"; };
+		4B83ACD41EB7C02C00F92569 /* SwitchStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchStackCell.swift; sourceTree = "<group>"; };
+		4B83ACD61EB7C0C500F92569 /* ButtonStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStackCell.swift; sourceTree = "<group>"; };
+		4B83ACD81EB7C0CB00F92569 /* MarginStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarginStackCell.swift; sourceTree = "<group>"; };
+		4B83ACDA1EB7C20700F92569 /* StackCellBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCellBase.swift; sourceTree = "<group>"; };
+		4B83ACDC1EB8578400F92569 /* HeaderStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderStackCell.swift; sourceTree = "<group>"; };
+		4B83ACDE1EB8580F00F92569 /* TextFieldStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldStackCell.swift; sourceTree = "<group>"; };
+		4B83ACE01EB85EB200F92569 /* TapStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapStackCell.swift; sourceTree = "<group>"; };
+		4B83ACE21EB8756800F92569 /* StackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCell.swift; sourceTree = "<group>"; };
 		4BE8B6F51D8E5AF200A4DC33 /* Then.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Then.framework; path = Carthage/Build/iOS/Then.framework; sourceTree = "<group>"; };
+		5BBF590042534B380EB634CE /* Pods-StackScrollView-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackScrollView-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		EDB7BDA1DD524C3580ED5E34 /* Pods_StackScrollView_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StackScrollView_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BDB87D91DBFBC8F00E70D5B /* RevealServer.framework in Frameworks */,
-				4BE8B6F81D8E5B3500A4DC33 /* EasyPeasy.framework in Frameworks */,
 				4BE8B6ED1D8E5A9700A4DC33 /* StackScrollView.framework in Frameworks */,
-				4BE8B6F61D8E5AF200A4DC33 /* Then.framework in Frameworks */,
+				9E10463014A8095D5EC331C8 /* Pods_StackScrollView_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,11 +111,11 @@
 		4B6C2D8F1D8DA3FB003D3A46 = {
 			isa = PBXGroup;
 			children = (
-				4BDB87D81DBFBC8800E70D5B /* RevealServer.framework */,
 				4B6C2D9B1D8DA3FB003D3A46 /* StackScrollView */,
 				4B6C2DB01D8DA68E003D3A46 /* StackScrollView-Demo */,
 				4B6C2D9A1D8DA3FB003D3A46 /* Products */,
 				4B6C2DA81D8DA439003D3A46 /* Frameworks */,
+				B5611D3702B81D46FD45EAFC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,7 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */,
-				4B6C2DA51D8DA42A003D3A46 /* StackScrollViewCellType.swift */,
+				4B6C2DA51D8DA42A003D3A46 /* StackCellType.swift */,
+				4B83ACE21EB8756800F92569 /* StackCell.swift */,
 				4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */,
 				4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */,
 			);
@@ -128,6 +145,7 @@
 			children = (
 				4BE8B6F51D8E5AF200A4DC33 /* Then.framework */,
 				4B6C2DA91D8DA439003D3A46 /* EasyPeasy.framework */,
+				EDB7BDA1DD524C3580ED5E34 /* Pods_StackScrollView_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,8 +159,28 @@
 				4B6C2DB81D8DA68E003D3A46 /* Assets.xcassets */,
 				4B6C2DBA1D8DA68E003D3A46 /* LaunchScreen.storyboard */,
 				4B6C2DBD1D8DA68E003D3A46 /* Info.plist */,
+				4B83ACDA1EB7C20700F92569 /* StackCellBase.swift */,
+				4B83ACE01EB85EB200F92569 /* TapStackCell.swift */,
+				4B83ACCC1EB7C00700F92569 /* DatePickerStackCell.swift */,
+				4B83ACCE1EB7C00E00F92569 /* LabelStackCell.swift */,
+				4B83ACD01EB7C01600F92569 /* SeparatorStackCell.swift */,
+				4B83ACD21EB7C02000F92569 /* TextViewStackCell.swift */,
+				4B83ACDE1EB8580F00F92569 /* TextFieldStackCell.swift */,
+				4B83ACD41EB7C02C00F92569 /* SwitchStackCell.swift */,
+				4B83ACD61EB7C0C500F92569 /* ButtonStackCell.swift */,
+				4B83ACD81EB7C0CB00F92569 /* MarginStackCell.swift */,
+				4B83ACDC1EB8578400F92569 /* HeaderStackCell.swift */,
 			);
 			path = "StackScrollView-Demo";
+			sourceTree = "<group>";
+		};
+		B5611D3702B81D46FD45EAFC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5BBF590042534B380EB634CE /* Pods-StackScrollView-Demo.debug.xcconfig */,
+				107B190065E8096D8802EE36 /* Pods-StackScrollView-Demo.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,10 +219,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B6C2DC01D8DA68E003D3A46 /* Build configuration list for PBXNativeTarget "StackScrollView-Demo" */;
 			buildPhases = (
+				85921EDC7C6ECDDC05B65CD4 /* [CP] Check Pods Manifest.lock */,
 				4B6C2DAB1D8DA68E003D3A46 /* Sources */,
 				4B6C2DAC1D8DA68E003D3A46 /* Frameworks */,
 				4B6C2DAD1D8DA68E003D3A46 /* Resources */,
 				4BE8B6F11D8E5A9700A4DC33 /* Embed Frameworks */,
+				24154DE9833A821AC3AEA6F2 /* [CP] Embed Pods Frameworks */,
+				848C2C71D8E615BCE87525CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,12 +300,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		24154DE9833A821AC3AEA6F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		848C2C71D8E615BCE87525CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85921EDC7C6ECDDC05B65CD4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4B6C2D941D8DA3FB003D3A46 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6C2DA71D8DA42A003D3A46 /* StackScrollViewCellType.swift in Sources */,
+				4B83ACE31EB8756800F92569 /* StackCell.swift in Sources */,
+				4B6C2DA71D8DA42A003D3A46 /* StackCellType.swift in Sources */,
 				4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,8 +363,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B83ACD31EB7C02000F92569 /* TextViewStackCell.swift in Sources */,
+				4B83ACD11EB7C01600F92569 /* SeparatorStackCell.swift in Sources */,
+				4B83ACD71EB7C0C500F92569 /* ButtonStackCell.swift in Sources */,
+				4B83ACDB1EB7C20700F92569 /* StackCellBase.swift in Sources */,
+				4B83ACD51EB7C02C00F92569 /* SwitchStackCell.swift in Sources */,
 				4B6C2DB41D8DA68E003D3A46 /* ViewController.swift in Sources */,
+				4B83ACDF1EB8580F00F92569 /* TextFieldStackCell.swift in Sources */,
+				4B83ACCF1EB7C00E00F92569 /* LabelStackCell.swift in Sources */,
 				4B6C2DB21D8DA68E003D3A46 /* AppDelegate.swift in Sources */,
+				4B83ACD91EB7C0CB00F92569 /* MarginStackCell.swift in Sources */,
+				4B83ACCD1EB7C00700F92569 /* DatePickerStackCell.swift in Sources */,
+				4B83ACE11EB85EB200F92569 /* TapStackCell.swift in Sources */,
+				4B83ACDD1EB8578400F92569 /* HeaderStackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +559,7 @@
 		};
 		4B6C2DBE1D8DA68E003D3A46 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BBF590042534B380EB634CE /* Pods-StackScrollView-Demo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -477,6 +579,7 @@
 		};
 		4B6C2DBF1D8DA68E003D3A46 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 107B190065E8096D8802EE36 /* Pods-StackScrollView-Demo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

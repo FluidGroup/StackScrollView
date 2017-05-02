@@ -11,251 +11,129 @@ import UIKit
 import StackScrollView
 import EasyPeasy
 
-import Then
-
 class ViewController: UIViewController {
+  
+  private var stackScrollView = StackScrollView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    var views: [UIView] = []
+    
+    let marginColor = UIColor(white: 0.98, alpha: 1)
+    
+    views.append(MarginStackCell(height: 96, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "LabelStackCell", backgroundColor: marginColor))
 
-    let colorA = UIColor(white: 0.9, alpha: 1)
-    let colorB = UIColor(white: 0.8, alpha: 1)
+    views.append(LabelStackCell(title: "Label"))
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "TextFieldStackCell", backgroundColor: marginColor))
+    
+    views.append(fullSeparator())
+    
+    views.append({
+      let v = TextFieldStackCell()
+      v.set(placeholder: "Title")
+      return v
+    }())
+    
+    views.append(semiSeparator())
+    
+    views.append({
+      let v = TextFieldStackCell()
+      v.set(placeholder: "Detail")
+      return v
+      }())
+    
+    views.append(fullSeparator())
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "DatePickerStackCell", backgroundColor: marginColor))
+    
+    views.append(fullSeparator())
+    
+    views.append({
+      let v = DatePickerStackCell()
+      v.set(title: "Date")
+      return v
+    }())
+    
+    views.append(fullSeparator())
 
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "TextViewStackCell", backgroundColor: marginColor))
+    
+    views.append(fullSeparator())
 
-    let labelCell = LabelStackViewCell().then { cell in
-      cell.backgroundColor = colorA
-      cell.titleLabel.text = "Hiroshi"
-      cell.detailLabel.text = "Kimura"
+    views.append(TextViewStackCell())
+
+    views.append(fullSeparator())
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "SwitchStackCell", backgroundColor: marginColor))
+    
+    (0..<3).forEach { i in
+      
+      let s = fullSeparator()
+      views.append(s)
+      views.append(SwitchStackCell(title: "Switch \(i)"))
     }
-
-    let switchCell = SwitchStackViewCell().then { cell in
-      cell.backgroundColor = colorB
-      cell.titleLabel.text = "Hiroshi"
-      cell.valueChanged = { on in
-
-      }
+    
+    views.append(fullSeparator())
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "ButtonStackCell", backgroundColor: marginColor))
+    
+    (0..<3).forEach { _ in
+      
+      let s = fullSeparator()
+      
+      views.append(s)
+      
+      views.append({
+        let v = ButtonStackCell(buttonTitle: "Remove")
+        v.tapped = { [unowned v] in
+          v.remove()
+          s.remove()
+        }
+        return v
+        }())
+      
     }
+    
+    views.append(fullSeparator())
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
 
-    let labelFromTextCell = LabelStackViewCell().then { cell in
-      cell.backgroundColor = colorA
-      cell.titleLabel.text = "Hiroshi"
-      cell.detailLabel.text = "Kimura"
-    }
+    views.append(HeaderStackCell(title: "MarginStackCell", backgroundColor: marginColor))
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    views.append(HeaderStackCell(title: "SeparatorStackCell", backgroundColor: marginColor))
+    
+    views.append(fullSeparator())
+    
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
 
-    let textFieldCell = TextFieldStackViewCell().then { cell in
-      cell.backgroundColor = colorB
-      cell.titleLabel.text = "Hiroshi"
-      cell.valueChanged = { string in
-
-        labelFromTextCell.titleLabel.text = string
-      }
-    }
-
-    let topCells = (0...20).map { i -> LabelStackViewCell in
-      LabelStackViewCell().then { cell in
-        cell.backgroundColor = colorA
-        cell.titleLabel.text = "\(i)"
-        cell.detailLabel.text = "\(i)"
-      }
-    }
-
-    let mediumCells = [
-      labelCell,
-      switchCell,
-      textFieldCell,
-      ]
-
-    let bottomCells = (20...40).map { i -> LabelStackViewCell in
-      LabelStackViewCell().then { cell in
-        cell.backgroundColor = colorA
-        cell.titleLabel.text = "\(i)"
-        cell.detailLabel.text = "\(i)"
-      }
-    }
-
-    stackScrollView.append(
-      views: [labelFromTextCell] + [topCells, mediumCells, bottomCells].flatMap { $0 })
+    stackScrollView.append(views: views)
 
     stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     stackScrollView.frame = view.bounds
     view.addSubview(stackScrollView)
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  
+  private func fullSeparator() -> SeparatorStackCell {
+    return SeparatorStackCell(leftMargin: 0, rightMargin: 0, backgroundColor: .clear, separatorColor: UIColor(white: 0.90, alpha: 1))
   }
-
-  private var stackScrollView = StackScrollView()
-}
-
-class LabelStackViewCell: UIView, StackScrollViewCellType {
-
-  let button = UIButton(type: .system)
-  let titleLabel = UILabel()
-  let detailLabel = UILabel()
-
-  init() {
-    super.init(frame: .zero)
-
-    button.setTitle("Remove", for: .normal)
-
-    addSubview(titleLabel)
-    addSubview(detailLabel)
-    addSubview(button)
-
-    titleLabel <- [
-      Left(8),
-      CenterY(),
-    ]
-
-    detailLabel <- [
-      Right(8),
-      CenterY(),
-    ]
-
-    button <- [
-      CenterX(),
-      CenterY(),
-    ]
-
-    button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-  }
-
-  override var intrinsicContentSize : CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  @objc private func tap() {
-
-    remove()
-  }
-}
-
-class SwitchStackViewCell: UIView, StackScrollViewCellType {
-
-  var valueChanged: (Bool) -> Void = { _ in }
-
-  private let marginView = UIView()
-  private let label = UILabel()
-
-  init() {
-    super.init(frame: .zero)
-
-    addSubview(titleLabel)
-    addSubview(switchView)
-    addSubview(marginView)
-
-    marginView.addSubview(label)
-
-    label.text = "ssssss"
-
-    titleLabel <- [
-      Top(20),
-      Left(8),
-    ]
-
-    marginView <- [
-      Top().to(titleLabel),
-      Left(),
-      Right(),
-      Bottom(),
-      Height(80),
-    ]
-
-    switchView <- [
-      Right(8),
-      Top(20),
-    ]
-
-    label <- [
-      Top().with(.medium),
-      Right(),
-      Left(),
-      Bottom().with(.medium),
-      CenterY(),
-    ]
-
-    switchView.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
-  }
-
-  override var intrinsicContentSize : CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  let titleLabel = UILabel()
-
-  let switchView = UISwitch()
-
-  @objc fileprivate func switchValueChanged() {
-
-    valueChanged(switchView.isOn)
-    if switchView.isOn {
-
-      NSLayoutConstraint.deactivate(
-        self.marginView <- [
-          Height(),
-        ]
-      )
-    } else {
-
-      marginView <- [
-        Height(0)
-      ]
-    }
-    updateLayout(animated: true)
-  }
-}
-
-class TextFieldStackViewCell: UIView {
-
-  var valueChanged: (String) -> Void = { _ in }
-
-  init() {
-    super.init(frame: .zero)
-
-    addSubview(titleLabel)
-    addSubview(textField)
-
-    titleLabel.setContentHuggingPriority(950, for: .horizontal)
-    titleLabel <- [
-      Left(8),
-      CenterY(),
-    ]
-
-    textField <- [
-      Left(8).to(titleLabel, .right),
-      Right(8),
-      CenterY(),
-    ]
-
-    textField.backgroundColor = UIColor(white: 0, alpha: 0.5)
-
-    textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
-  }
-
-  override var intrinsicContentSize : CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: 60)
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  let titleLabel = UILabel()
-
-  let textField = UITextField()
-
-  @objc fileprivate func textChanged() {
-
-    valueChanged(textField.text ?? "")
+  
+  private func semiSeparator() -> SeparatorStackCell {
+    return SeparatorStackCell(leftMargin: 8, rightMargin: 8, backgroundColor: .clear, separatorColor: UIColor(white: 0.90, alpha: 1))
   }
 }

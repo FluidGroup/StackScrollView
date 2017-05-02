@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'StackScrollView'
-  s.version          = '0.5.0'
-  s.summary          = 'Scalable form builder with UIScrollView'
+  s.version          = '0.9.0'
+  s.summary          = 'Scalable form builder with UICollectionView'
   s.homepage         = 'https://github.com/muukii/StackScrollView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'muukii' => 'm@muukii.me' }

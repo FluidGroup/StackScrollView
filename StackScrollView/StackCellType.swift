@@ -1,4 +1,4 @@
-// StackScrollViewCellType.swift
+// StackCellType.swift
 //
 // Copyright (c) 2016 muukii
 //
@@ -22,11 +22,14 @@
 
 import UIKit
 
-public protocol StackScrollViewCellType: class {
+@available(*, deprecated: 1.0.0, renamed: "StackCellType")
+public typealias StackScrollViewCellType = StackCellType
+
+public protocol StackCellType: class {
 
 }
 
-extension StackScrollViewCellType where Self: UIView {
+extension StackCellType where Self: UIView {
 
   public var stackScrollView: StackScrollView? {
     var superview: UIView? = self
@@ -37,7 +40,7 @@ extension StackScrollViewCellType where Self: UIView {
 
     return superview as? StackScrollView
   }
-
+  
   public func scrollToSelf(animated: Bool) {
 
     stackScrollView?.scroll(to: self, animated: animated)
