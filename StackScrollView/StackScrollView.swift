@@ -60,6 +60,15 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
     }
   }
   
+  open var keyboardDismissMode: UIScrollViewKeyboardDismissMode {
+    get {
+      return collectionView.keyboardDismissMode
+    }
+    set {
+      collectionView.keyboardDismissMode = newValue
+    }
+  }
+  
   // MARK: - Initializers
   
   public init(frame: CGRect, collectionViewLayout: UICollectionViewFlowLayout) {
