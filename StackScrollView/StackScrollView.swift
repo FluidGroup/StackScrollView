@@ -22,7 +22,7 @@
 
 import UIKit
 
-open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+open class StackScrollView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   
   private enum LayoutKeys {
     static let top = "me.muukii.StackScrollView.top"
@@ -40,51 +40,31 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
     return layout
   }
   
-  private let collectionView: InternalCollectionView
-  
-  open var contentInset: UIEdgeInsets {
-    get {
-      return collectionView.contentInset
-    }
-    set {
-      collectionView.contentInset = newValue
+  @available(*, unavailable)
+  open override var dataSource: UICollectionViewDataSource? {
+    didSet {
     }
   }
   
-  open var scrollIndicatorInsets: UIEdgeInsets {
-    get {
-      return collectionView.scrollIndicatorInsets
-    }
-    set {
-      collectionView.scrollIndicatorInsets = newValue
-    }
-  }
-  
-  open var keyboardDismissMode: UIScrollViewKeyboardDismissMode {
-    get {
-      return collectionView.keyboardDismissMode
-    }
-    set {
-      collectionView.keyboardDismissMode = newValue
+  @available(*, unavailable)
+  open override var delegate: UICollectionViewDelegate? {
+    didSet {
     }
   }
   
   // MARK: - Initializers
   
-  public init(frame: CGRect, collectionViewLayout: UICollectionViewFlowLayout) {
-    collectionView = InternalCollectionView(frame: frame, collectionViewLayout: collectionViewLayout)
-    super.init(frame: frame)
+  public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    super.init(frame: frame, collectionViewLayout: layout)
     setup()
   }
   
-  public override init(frame: CGRect) {
-    collectionView = InternalCollectionView(frame: frame, collectionViewLayout: StackScrollView.defaultLayout())
-    super.init(frame: frame)
+  public convenience init(frame: CGRect) {
+    self.init(frame: frame, collectionViewLayout: StackScrollView.defaultLayout())
     setup()
   }
   
   public required init?(coder aDecoder: NSCoder) {
-    collectionView = InternalCollectionView(frame: .zero, collectionViewLayout: StackScrollView.defaultLayout())
     super.init(coder: aDecoder)
     setup()
   }
@@ -99,35 +79,33 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
     
     backgroundColor = .white
     
-    addSubview(collectionView)
-    collectionView.frame = bounds
-    collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    alwaysBounceVertical = true
+    delaysContentTouches = false
+    keyboardDismissMode = .interactive
+    backgroundColor = .clear
     
-    collectionView.alwaysBounceVertical = true
-    collectionView.delaysContentTouches = false
-    collectionView.keyboardDismissMode = .interactive
-    collectionView.backgroundColor = .clear
-    
-    collectionView.delegate = self
-    collectionView.dataSource = self
+    super.delegate = self
+    super.dataSource = self
+  }
+  
+  open override func touchesShouldCancel(in view: UIView) -> Bool {
+    return true
   }
 
   open func append(view: UIView) {
     
     views.append(view)
-    
-    collectionView.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
-    
-    collectionView.reloadData()
+    register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+    reloadData()
   }  
   
   open func append(views _views: [UIView]) {
     
     views += _views
     _views.forEach { view in
-      collectionView.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
-    collectionView.reloadData()
+    reloadData()
   }
   
   // TODO:
@@ -153,8 +131,8 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
             .overrideInheritedDuration
           ],
           animations: {
-            self.collectionView.performBatchUpdates({
-              self.collectionView.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+            self.performBatchUpdates({
+              self.deleteItems(at: [IndexPath(item: index, section: 0)])
             }, completion: nil)
         }) { (finish) in
           
@@ -162,8 +140,8 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
         
       } else {
         UIView.performWithoutAnimation {
-          collectionView.performBatchUpdates({
-            self.collectionView.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+          performBatchUpdates({
+            self.deleteItems(at: [IndexPath(item: index, section: 0)])
           }, completion: nil)
         }
       }
@@ -173,12 +151,12 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
   open func scroll(to view: UIView, animated: Bool) {
     
     let targetRect = view.convert(view.bounds, to: self)
-    collectionView.scrollRectToVisible(targetRect, animated: true)
+    scrollRectToVisible(targetRect, animated: true)
   }
   
   open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
     if let index = views.index(of: view) {
-      collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
+      scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
   }
   
@@ -269,14 +247,14 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
           .overrideInheritedDuration
         ],
         animations: {
-          self.collectionView.performBatchUpdates(nil, completion: nil)
+          self.performBatchUpdates(nil, completion: nil)
           self.layoutIfNeeded()
       }) { (finish) in
         
       }
     } else {
       UIView.performWithoutAnimation {
-        self.collectionView.performBatchUpdates(nil, completion: nil)
+        self.performBatchUpdates(nil, completion: nil)
         self.layoutIfNeeded()
       }
     }
@@ -287,12 +265,5 @@ open class StackScrollView: UIView, UICollectionViewDataSource, UICollectionView
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
       return layoutAttributes
     }
-  }
-}
-
-private class InternalCollectionView: UICollectionView {
-  
-  open override func touchesShouldCancel(in view: UIView) -> Bool {
-    return true
   }
 }
