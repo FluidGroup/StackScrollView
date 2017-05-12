@@ -6,9 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/StackScrollView.svg?style=flat)](http://cocoapods.org/pods/StackScrollView)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-<img width=320 src="Resources/shot.png">
-
-<img width=320 src="Resources/sample.gif">
+<img width=320 src="Resources/shot.png"><img width=320 src="Resources/sample.gif">
 
 ## What is this?
 
