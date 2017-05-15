@@ -108,7 +108,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     reloadData()
   }
   
-  // TODO:
+  @available(*, unavailable, message: "Unimplemented")
   func append(lazy: @escaping () -> UIView) {
     
   }
