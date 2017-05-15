@@ -20,6 +20,12 @@ UICollectionView calculates size of view by AutoLayout, then that display.
 - We no longer need to consider reusing Cells.
 - `StackCell` requires constraint based layout.
 
+## Roadmap?
+
+This library supply only functions that create form UI.
+We need to create own `StackCell`s to our app.
+I think good that create useful `StackCell`s component library.
+
 ## Usage
 
 ### Basic usage
