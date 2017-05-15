@@ -26,8 +26,35 @@ UICollectionView calculates size of view by AutoLayout, then that display.
 
 ```swift
 let stack = StackScrollView()
-stack.append(view: UIView())
+
+stack.append(view: ...)
+
+stack.remove(view: ..., animated: true)
 ```
+
+### APIs
+
+#### StackScrollView
+
+```swift
+func append(view: UIView)
+func remove(view: UIView, animated: Bool)
+func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool)
+```
+
+#### StackCellType
+
+StackScrollView does not required StackCellType.
+if `StackCell` has `StackCellType`, be easy that control StackCell.
+
+```swift
+func scrollToSelf(animated: Bool)
+func scrollToSelf(at position: UICollectionViewScrollPosition, animated: Bool)
+func updateLayout(animated: Bool)
+func remove()
+```
+
+*Demo has included this APIs usage.*
 
 ### Create CustomCell from Code
 
