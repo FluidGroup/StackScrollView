@@ -97,7 +97,10 @@ stack.append(view: LabelStackCell(title: "Label"))
 
 ### Create CustomCell from XIB
 
-// TODO:
+We can use UIView from XIB.
+
+This framework has `NibLoader<T: UIView>`.
+It might be useful for you.
 
 ### Create everything
 
