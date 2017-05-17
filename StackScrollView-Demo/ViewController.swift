@@ -121,6 +121,19 @@ class ViewController: UIViewController {
     views.append(fullSeparator())
     
     views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
+    
+    do {
+      // Load from XIB
+      
+      let cell = NibLoader<NibStackCell>().load()
+      
+      views.append(fullSeparator())
+      views.append(cell)
+      views.append(fullSeparator())
+      
+    }
+
+    views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
 
     stackScrollView.append(views: views)
 

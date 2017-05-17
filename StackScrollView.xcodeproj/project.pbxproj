@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1B51BA1ECB85C70034A3D9 /* NibLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B51B91ECB85C70034A3D9 /* NibLoader.swift */; };
+		4B1B51BC1ECB88230034A3D9 /* NibStackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B51BB1ECB88220034A3D9 /* NibStackCell.xib */; };
+		4B1B51BE1ECB882D0034A3D9 /* NibStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B51BD1ECB882D0034A3D9 /* NibStackCell.swift */; };
 		4B6C2D9E1D8DA3FB003D3A46 /* StackScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */; };
 		4B6C2DA71D8DA42A003D3A46 /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C2DA51D8DA42A003D3A46 /* StackCellType.swift */; };
@@ -58,6 +61,9 @@
 
 /* Begin PBXFileReference section */
 		107B190065E8096D8802EE36 /* Pods-StackScrollView-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackScrollView-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		4B1B51B91ECB85C70034A3D9 /* NibLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibLoader.swift; sourceTree = "<group>"; };
+		4B1B51BB1ECB88220034A3D9 /* NibStackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibStackCell.xib; sourceTree = "<group>"; };
+		4B1B51BD1ECB882D0034A3D9 /* NibStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibStackCell.swift; sourceTree = "<group>"; };
 		4B6C2D991D8DA3FB003D3A46 /* StackScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StackScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackScrollView.h; sourceTree = "<group>"; };
 		4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				4B6C2DA41D8DA42A003D3A46 /* StackScrollView.swift */,
 				4B6C2DA51D8DA42A003D3A46 /* StackCellType.swift */,
 				4B83ACE21EB8756800F92569 /* StackCell.swift */,
+				4B1B51B91ECB85C70034A3D9 /* NibLoader.swift */,
 				4B6C2D9C1D8DA3FB003D3A46 /* StackScrollView.h */,
 				4B6C2D9D1D8DA3FB003D3A46 /* Info.plist */,
 			);
@@ -170,6 +177,8 @@
 				4B83ACD61EB7C0C500F92569 /* ButtonStackCell.swift */,
 				4B83ACD81EB7C0CB00F92569 /* MarginStackCell.swift */,
 				4B83ACDC1EB8578400F92569 /* HeaderStackCell.swift */,
+				4B1B51BD1ECB882D0034A3D9 /* NibStackCell.swift */,
+				4B1B51BB1ECB88220034A3D9 /* NibStackCell.xib */,
 			);
 			path = "StackScrollView-Demo";
 			sourceTree = "<group>";
@@ -292,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1B51BC1ECB88230034A3D9 /* NibStackCell.xib in Resources */,
 				4B6C2DBC1D8DA68E003D3A46 /* LaunchScreen.storyboard in Resources */,
 				4B6C2DB91D8DA68E003D3A46 /* Assets.xcassets in Resources */,
 				4B6C2DB71D8DA68E003D3A46 /* Main.storyboard in Resources */,
@@ -355,6 +365,7 @@
 			files = (
 				4B83ACE31EB8756800F92569 /* StackCell.swift in Sources */,
 				4B6C2DA71D8DA42A003D3A46 /* StackCellType.swift in Sources */,
+				4B1B51BA1ECB85C70034A3D9 /* NibLoader.swift in Sources */,
 				4B6C2DA61D8DA42A003D3A46 /* StackScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +386,7 @@
 				4B83ACD91EB7C0CB00F92569 /* MarginStackCell.swift in Sources */,
 				4B83ACCD1EB7C00700F92569 /* DatePickerStackCell.swift in Sources */,
 				4B83ACE11EB85EB200F92569 /* TapStackCell.swift in Sources */,
+				4B1B51BE1ECB882D0034A3D9 /* NibStackCell.swift in Sources */,
 				4B83ACDD1EB8578400F92569 /* HeaderStackCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
