@@ -20,14 +20,18 @@ final class LabelStackCell: StackCellBase {
     super.init()
     
     addSubview(label)
-    label.translatesAutoresizingMaskIntoConstraints = false
+        
+    label <- [
+      Top(>=8),
+      Left(8),
+      Right(8),
+      Bottom(<=8),
+      CenterY(),
+    ]
     
-    label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 8).isActive = true
-    label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: 8).isActive = true
-    label.rightAnchor.constraint(equalTo: rightAnchor, constant: 8).isActive = true
-    label.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
-    label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    heightAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
+    self <- [
+      Height(>=40),
+    ]
     
     label.font = UIFont.preferredFont(forTextStyle: .body)
     label.text = title
