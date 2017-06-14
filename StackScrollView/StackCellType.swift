@@ -22,9 +22,6 @@
 
 import UIKit
 
-@available(*, deprecated: 1.0.0, renamed: "StackCellType")
-public typealias StackScrollViewCellType = StackCellType
-
 public protocol StackCellType: class {
 
 }
