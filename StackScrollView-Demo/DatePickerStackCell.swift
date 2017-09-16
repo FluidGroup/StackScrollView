@@ -31,7 +31,7 @@ final class DatePickerStackCell: TapStackCell {
     
     pickerContainerView.clipsToBounds = true
     
-    pickerView.setContentHuggingPriority(100, for: .horizontal)
+    pickerView.setContentHuggingPriority(.init(100), for: .horizontal)
     
     pickerContainerView.addSubview(pickerView)
     

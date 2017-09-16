@@ -13,7 +13,7 @@ import EasyPeasy
 
 class ViewController: UIViewController {
   
-  private var stackScrollView = StackScrollView()
+  private let stackScrollView = StackScrollView()
 
   override func viewDidLoad() {
     super.viewDidLoad()

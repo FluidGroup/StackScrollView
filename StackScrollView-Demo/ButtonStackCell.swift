@@ -12,7 +12,7 @@ import EasyPeasy
 
 final class ButtonStackCell: StackCellBase {
   
-  var tapped: () -> Void = { _ in }
+  var tapped: () -> Void = {}
   
   private let button = UIButton(type: .system)
   
