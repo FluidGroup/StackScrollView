@@ -209,26 +209,33 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
     let view = views[indexPath.item]
-    
-    let width: NSLayoutConstraint = {
-      
-      guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
-        let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
-        width.identifier = LayoutKeys.width
-        width.isActive = true
-        return width
-      }
-      
-      return c
-    }()
-    
-    width.constant = collectionView.bounds.width
-    
-    let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-    
-    assert(size.width == collectionView.bounds.width)
-    
-    return size
+
+    if let view = view as? ManualLayoutStackCellType {
+
+      return view.size(maxWidth: collectionView.bounds.width, maxHeight: nil)
+
+    } else {
+
+      let width: NSLayoutConstraint = {
+
+        guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
+          let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
+          width.identifier = LayoutKeys.width
+          width.isActive = true
+          return width
+        }
+
+        return c
+      }()
+
+      width.constant = collectionView.bounds.width
+
+      let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+
+      assert(size.width == collectionView.bounds.width)
+      return size
+
+    }
   }
   
   public func updateLayout(animated: Bool) {
