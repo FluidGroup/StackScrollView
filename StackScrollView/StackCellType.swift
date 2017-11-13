@@ -22,11 +22,16 @@
 
 import UIKit
 
-public protocol StackCellType: class {
+public protocol StackCellType : class {
 
 }
 
-extension StackCellType where Self: UIView {
+public protocol ManualLayoutStackCellType : StackCellType {
+
+  func size(maxWidth: CGFloat?, maxHeight: CGFloat?) -> CGSize
+}
+
+extension StackCellType where Self : UIView {
 
   public var stackScrollView: StackScrollView? {
     var superview: UIView? = self

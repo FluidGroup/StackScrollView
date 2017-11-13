@@ -180,28 +180,35 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
     
     precondition(cell.contentView.subviews.isEmpty)
-    
-    view.translatesAutoresizingMaskIntoConstraints = false
-    cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-    cell.contentView.addSubview(view)
-    
-    let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
-    let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
-    let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
-    let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
-    
-    top.identifier = LayoutKeys.top
-    right.identifier = LayoutKeys.right
-    bottom.identifier = LayoutKeys.bottom
-    left.identifier = LayoutKeys.left
-    
-    NSLayoutConstraint.activate([
-      top,
-      right,
-      bottom,
-      left,
-      ])
+
+    if view is ManualLayoutStackCellType {
+
+      cell.contentView.addSubview(view)
+      
+    } else {
+
+      view.translatesAutoresizingMaskIntoConstraints = false
+      cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+      cell.contentView.addSubview(view)
+
+      let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+      let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
+      let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+      let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
+
+      top.identifier = LayoutKeys.top
+      right.identifier = LayoutKeys.right
+      bottom.identifier = LayoutKeys.bottom
+      left.identifier = LayoutKeys.left
+
+      NSLayoutConstraint.activate([
+        top,
+        right,
+        bottom,
+        left,
+        ])
+    }
     
     return cell
   }
@@ -209,26 +216,33 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
     let view = views[indexPath.item]
-    
-    let width: NSLayoutConstraint = {
-      
-      guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
-        let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
-        width.identifier = LayoutKeys.width
-        width.isActive = true
-        return width
-      }
-      
-      return c
-    }()
-    
-    width.constant = collectionView.bounds.width
-    
-    let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-    
-    assert(size.width == collectionView.bounds.width)
-    
-    return size
+
+    if let view = view as? ManualLayoutStackCellType {
+
+      return view.size(maxWidth: collectionView.bounds.width, maxHeight: nil)
+
+    } else {
+
+      let width: NSLayoutConstraint = {
+
+        guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
+          let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
+          width.identifier = LayoutKeys.width
+          width.isActive = true
+          return width
+        }
+
+        return c
+      }()
+
+      width.constant = collectionView.bounds.width
+
+      let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+
+      assert(size.width == collectionView.bounds.width)
+      return size
+
+    }
   }
   
   public func updateLayout(animated: Bool) {

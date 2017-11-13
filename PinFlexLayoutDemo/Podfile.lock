@@ -1,0 +1,31 @@
+PODS:
+  - FlexLayout (1.1.5):
+    - YogaKit
+  - PinLayout (1.4.2)
+  - Reveal-SDK (11)
+  - StackScrollView (1.1.0)
+  - Yoga (1.6.0)
+  - YogaKit (1.6.0):
+    - Yoga (~> 1.6)
+
+DEPENDENCIES:
+  - FlexLayout
+  - PinLayout
+  - Reveal-SDK
+  - StackScrollView (from `../`)
+
+EXTERNAL SOURCES:
+  StackScrollView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FlexLayout: c3e436554a53336b1285962803a631651fe74db3
+  PinLayout: f903b9b737fd6c051f046ba7de1ad849edbb5d21
+  Reveal-SDK: 7fa13d04bb55db61ff2342a990cf731d5159361d
+  StackScrollView: 42eb0693ef0bb70bd9eca837b7df04c62c1553ab
+  Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
+  YogaKit: 8fe0ddd21673226c0b6077fc3ad5c8fa6cda722e
+
+PODFILE CHECKSUM: c27183902f5d813581da68fa9eb6ed8f11f53f5b
+
+COCOAPODS: 1.3.1
