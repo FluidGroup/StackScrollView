@@ -107,6 +107,13 @@ It might be useful for you.
 You can create any Cell.
 Please, check `StackScrollView-Demo`
 
+### ManualLayout
+
+You can create Cell with ManualLayout.
+
+If you use ManualLayout, the Cell have to use `ManualLayoutStackCellType`.
+Then, return self-size based on maximum size in `size(maxWidth:maxHeight)`
+
 ## Author
 
 muukii, m@muukii.me
