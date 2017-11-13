@@ -25,6 +25,10 @@ class ViewController: UIViewController {
 
     views.append(MarginStackCell(height: 96, backgroundColor: marginColor))
     views.append(FlexLabelStackCell(title: "Hello"))
+    views.append(PinLabelStackCell(title: "Fooo"))
+    views.append(DatePickerCell.init())
+    views.append(DatePickerCell.init())
+
 
     stackScrollView.append(views: views)
 
@@ -66,6 +70,45 @@ final class MarginStackCell: StackCellBase {
   }
 }
 
+// WIP:
+final class PinLabelStackCell: StackCellBase, ManualLayoutStackCellType {
+
+  private let label = UILabel()
+
+  init(title: String) {
+    super.init()
+
+    addSubview(label)
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.text = title
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    layout()
+  }
+
+  private func layout() {
+
+    label.pin.all().fitSize()
+
+  }
+
+  func size(maxWidth: CGFloat?, maxHeight: CGFloat?) -> CGSize {
+
+    if let maxWidth = maxWidth {
+      self.pin.width(maxWidth)
+    }
+
+    layout()
+
+    let size = self.bounds.size
+    return size
+    return CGSize(width: size.height, height: 16)
+  }
+}
+
 final class FlexLabelStackCell: StackCellBase, ManualLayoutStackCellType {
 
   private let label = UILabel()
@@ -91,6 +134,72 @@ final class FlexLabelStackCell: StackCellBase, ManualLayoutStackCellType {
   }
 
   private func layout() {
+    self.flex.layout(mode: .adjustHeight)
+  }
+
+  func size(maxWidth: CGFloat?, maxHeight: CGFloat?) -> CGSize {
+
+    if let maxWidth = maxWidth {
+      self.flex.width(maxWidth)
+    }
+
+    layout()
+
+    let size = self.bounds.size
+    return size
+  }
+}
+
+final class DatePickerCell : StackCellBase, ManualLayoutStackCellType {
+
+  private let datePicker: UIDatePicker = .init()
+  private let label: UILabel = .init()
+  private let separator: UIView = .init()
+
+  private var isOn: Bool = false
+
+  override init() {
+    super.init()
+
+    self.addTarget(self, action: #selector(tap), for: .touchUpInside)
+
+    label.flex.height(40)
+    separator.flex.height(1 / UIScreen.main.scale)
+    backgroundColor = UIColor(white: 0.9, alpha: 1)
+  }
+
+  @objc func tap() {
+    isOn = !isOn
+    updateLayout(animated: true)
+  }
+
+  override func didMoveToSuperview() {
+    super.didMoveToSuperview()
+
+    superview?.backgroundColor = .black
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    layout()
+  }
+
+  private func layout() {
+
+    self.flex.define { flex in
+      flex.addItem(label)
+
+      flex.addItem(separator)
+      flex.addItem(datePicker)
+
+      separator.flex.isIncludedInLayout(isOn)
+      datePicker.flex.isIncludedInLayout(isOn)
+
+      separator.alpha = isOn ? 1 : 0
+      datePicker.alpha = isOn ? 1 : 0
+    }
+
     self.flex.layout(mode: .adjustHeight)
   }
 

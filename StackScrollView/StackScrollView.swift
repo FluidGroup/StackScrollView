@@ -180,28 +180,35 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
     
     precondition(cell.contentView.subviews.isEmpty)
-    
-    view.translatesAutoresizingMaskIntoConstraints = false
-    cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-    cell.contentView.addSubview(view)
-    
-    let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
-    let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
-    let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
-    let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
-    
-    top.identifier = LayoutKeys.top
-    right.identifier = LayoutKeys.right
-    bottom.identifier = LayoutKeys.bottom
-    left.identifier = LayoutKeys.left
-    
-    NSLayoutConstraint.activate([
-      top,
-      right,
-      bottom,
-      left,
-      ])
+
+    if view is ManualLayoutStackCellType {
+
+      cell.contentView.addSubview(view)
+      
+    } else {
+
+      view.translatesAutoresizingMaskIntoConstraints = false
+      cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+      cell.contentView.addSubview(view)
+
+      let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
+      let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
+      let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+      let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
+
+      top.identifier = LayoutKeys.top
+      right.identifier = LayoutKeys.right
+      bottom.identifier = LayoutKeys.bottom
+      left.identifier = LayoutKeys.left
+
+      NSLayoutConstraint.activate([
+        top,
+        right,
+        bottom,
+        left,
+        ])
+    }
     
     return cell
   }
