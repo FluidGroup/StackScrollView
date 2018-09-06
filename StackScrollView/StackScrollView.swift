@@ -179,15 +179,15 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           .overrideInheritedDuration
         ],
         animations: {
-            self.performBatchUpdates({
-                self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-            }, completion: nil)
+          self.performBatchUpdates({
+            self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
+          }, completion: nil)
         })
     } else {
       UIView.performWithoutAnimation {
-          performBatchUpdates({
-              self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-          }, completion: nil)
+        performBatchUpdates({
+          self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
+        }, completion: nil)
       }
     }
   }
