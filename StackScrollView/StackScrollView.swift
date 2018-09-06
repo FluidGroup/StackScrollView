@@ -148,6 +148,50 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
   }
   
+  open func remove(views: [UIView], animated: Bool) {
+
+    var indicesForRemove: [Int] = []
+
+    for view in views {
+      if let index = self.views.index(of: view) {
+        indicesForRemove.append(index)
+      }
+    }
+
+    // It seems that the layout is not updated properly unless the order is aligned.
+    indicesForRemove.sort(by: >)
+
+    for index in indicesForRemove {
+      self.views.remove(at: index)
+    }
+
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: {
+          self.performBatchUpdates({
+            self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
+          }, completion: nil)
+        })
+    } else {
+      UIView.performWithoutAnimation {
+        performBatchUpdates({
+          self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
+        }, completion: nil)
+      }
+    }
+  }
+
   open func scroll(to view: UIView, animated: Bool) {
     
     let targetRect = view.convert(view.bounds, to: self)
