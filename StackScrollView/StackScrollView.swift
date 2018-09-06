@@ -148,6 +148,16 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
   }
   
+  open func remove(viewsToRemove : [UIView]) {
+    for view in viewsToRemove {
+      if let index = views.index(of: view) {
+        views.remove(at: index)
+      }
+    }
+        
+    reloadData()
+  }
+  
   open func scroll(to view: UIView, animated: Bool) {
     
     let targetRect = view.convert(view.bounds, to: self)
