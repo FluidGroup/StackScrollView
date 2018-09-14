@@ -21,6 +21,6 @@ final class MarginStackCell: StackCellBase {
   }
   
   override var intrinsicContentSize: CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: height)
+    return CGSize(width: UIView.noIntrinsicMetric, height: height)
   }
 }

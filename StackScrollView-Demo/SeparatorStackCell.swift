@@ -15,7 +15,7 @@ final class SeparatorStackCell: StackCellBase {
   private let borderView = UIView()
   
   public override var intrinsicContentSize: CGSize {
-    return CGSize(width: UIViewNoIntrinsicMetric, height: 1 / UIScreen.main.scale)
+    return CGSize(width: UIView.noIntrinsicMetric, height: 1 / UIScreen.main.scale)
   }
   
   public init(

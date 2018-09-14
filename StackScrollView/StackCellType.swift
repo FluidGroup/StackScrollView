@@ -48,7 +48,7 @@ extension StackCellType where Self : UIView {
     stackScrollView?.scroll(to: self, animated: animated)
   }
 
-  public func scrollToSelf(at position: UICollectionViewScrollPosition, animated: Bool) {
+  public func scrollToSelf(at position: UICollectionView.ScrollPosition, animated: Bool) {
     stackScrollView?.scroll(to: self, at: position, animated: animated)
   }
 

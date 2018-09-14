@@ -198,7 +198,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     scrollRectToVisible(targetRect, animated: true)
   }
   
-  open func scroll(to view: UIView, at position: UICollectionViewScrollPosition, animated: Bool) {
+  open func scroll(to view: UIView, at position: UICollectionView.ScrollPosition, animated: Bool) {
     if let index = views.index(of: view) {
       scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
@@ -281,7 +281,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
       width.constant = collectionView.bounds.width
 
-      let size = view.superview?.systemLayoutSizeFitting(UILayoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+      let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
 
       assert(size.width == collectionView.bounds.width)
       return size
