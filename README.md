@@ -8,6 +8,11 @@
 
 <img width=320 src="Resources/shot.png"><img width=320 src="Resources/sample.gif">
 
+⚠️ This sample is using demo-components.
+StackScrollView does not have default-components.
+StackScrollView is like UIStackView.
+So, we need to create the components we need.
+
 ## What is this?
 
 StackScrollView builds form UI easily.
@@ -19,12 +24,6 @@ UICollectionView calculates size of view by AutoLayout, then that display.
 - We call `StackCell` instead of `Cell` on StackScrollView.
 - We no longer need to consider reusing Cells.
 - `StackCell` requires constraint based layout.
-
-## Roadmap?
-
-This library supply only functions that create form UI.
-We need to create own `StackCell`s to our app.
-I think good that create useful `StackCell`s component library.
 
 ## Usage
 
