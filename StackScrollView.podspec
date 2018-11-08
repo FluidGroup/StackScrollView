@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/muukii0803'
 
   s.ios.deployment_target = '9.0'
-  s.source_files = 'StackScrollView/**/*'
+  s.source_files = 'StackScrollView/**/*.swift'
 
 end
