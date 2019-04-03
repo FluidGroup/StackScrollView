@@ -115,7 +115,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   
   open func remove(view: UIView, animated: Bool) {
     
-    if let index = views.index(of: view) {
+    if let index = views.firstIndex(of: view) {
       views.remove(at: index)
       if animated {
         UIView.animate(
@@ -153,7 +153,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     var indicesForRemove: [Int] = []
 
     for view in views {
-      if let index = self.views.index(of: view) {
+      if let index = self.views.firstIndex(of: view) {
         indicesForRemove.append(index)
       }
     }
@@ -199,7 +199,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
   
   open func scroll(to view: UIView, at position: UICollectionView.ScrollPosition, animated: Bool) {
-    if let index = views.index(of: view) {
+    if let index = views.firstIndex(of: view) {
       scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
     }
   }

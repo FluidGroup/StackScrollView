@@ -20,9 +20,9 @@ final class TextViewStackCell: StackCellBase, UITextViewDelegate {
     super.init()
     
     addSubview(textView)
-    textView <- Edges(UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+    textView.easy.layout(Edges(UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)))
     
-    self <- Height(>=40)
+    self.easy.layout(Height(>=40))
     
     textView.font = UIFont.preferredFont(forTextStyle: .body)
     textView.isScrollEnabled = false
