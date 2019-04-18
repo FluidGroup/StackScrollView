@@ -282,13 +282,6 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
       width.constant = collectionView.bounds.width
 
       let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-
-      if #available(iOS 11, *) {
-        assert(
-          size.width == collectionView.bounds.width,
-          "Calculated width(\(size.width)) of view<\(view)> was different width(\(collectionView.bounds.width)) of CollectionView."
-        )
-      }
       
       return size
 
