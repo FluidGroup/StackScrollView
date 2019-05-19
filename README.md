@@ -115,7 +115,7 @@ Then, return self-size based on maximum size in `size(maxWidth:maxHeight)`
 
 ## Author
 
-muukii, m@muukii.me
+muukii, muukii.app@gmail.com
 
 ## License
 
