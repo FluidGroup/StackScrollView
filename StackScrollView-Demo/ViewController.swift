@@ -90,13 +90,14 @@ class ViewController: UIViewController {
     views.append(MarginStackCell(height: 40, backgroundColor: marginColor))
     
     views.append(HeaderStackCell(title: "ButtonStackCell", backgroundColor: marginColor))
-    
-    (0..<3).forEach { _ in
-      
-      let s = fullSeparator()
-      
+
+    let makeRemovableButton: () -> [UIView] = {
+
+      let s = self.fullSeparator()
+
+      var views: [UIView] = []
       views.append(s)
-      
+
       views.append({
         let v = ButtonStackCell(buttonTitle: "Remove")
         v.tapped = { [unowned v] in
@@ -105,8 +106,28 @@ class ViewController: UIViewController {
         }
         return v
         }())
-      
+      return views
     }
+
+    views.append(contentsOf: { () -> [UIView] in
+      let s = fullSeparator()
+      let v = ButtonStackCell(buttonTitle: "Insert Before")
+      v.tapped = { [unowned stackScrollView, unowned s] in
+        let views = (0 ... .random(in: 1 ... 2)).flatMap { _ in makeRemovableButton() }
+        stackScrollView.insert(views: views, before: s, animated: true)
+      }
+      return [s, v]
+      }())
+
+    views.append(contentsOf: { () -> [UIView] in
+      let s = fullSeparator()
+      let v = ButtonStackCell(buttonTitle: "Insert After")
+      v.tapped = { [unowned stackScrollView, unowned v] in
+        let views = (0 ... .random(in: 1 ... 2)).flatMap { _ in makeRemovableButton() }
+        stackScrollView.insert(views: views, after: v, animated: true)
+      }
+      return [s, v]
+    }())
     
     views.append(fullSeparator())
     
