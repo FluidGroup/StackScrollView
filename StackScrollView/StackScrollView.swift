@@ -112,6 +112,56 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   func append(lazy: @escaping () -> UIView) {
     
   }
+
+  open func insert(views _views: [UIView], at index: Int, animated: Bool) {
+
+    var _views = _views
+    _views.removeAll(where: views.contains(_:))
+    views.insert(contentsOf: _views, at: index)
+    _views.forEach { view in
+      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+    }
+    let batchUpdates: () -> Void = {
+      self.performBatchUpdates({
+        self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
+      }, completion: nil)
+    }
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: batchUpdates,
+        completion: nil)
+
+    } else {
+      UIView.performWithoutAnimation(batchUpdates)
+    }
+  }
+
+  open func insert(views _views: [UIView], before view: UIView, animated: Bool) {
+
+    guard let index = views.firstIndex(of: view) else {
+      return
+    }
+    insert(views: _views, at: index, animated: animated)
+  }
+
+  open func insert(views _views: [UIView], after view: UIView, animated: Bool) {
+
+    guard let index = views.firstIndex(of: view)?.advanced(by: 1) else {
+      return
+    }
+    insert(views: _views, at: index, animated: animated)
+  }
   
   open func remove(view: UIView, animated: Bool) {
     
