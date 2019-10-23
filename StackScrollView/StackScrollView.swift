@@ -116,7 +116,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   open func insert(views _views: [UIView], at index: Int, animated: Bool) {
 
     _views.forEach { view in
-      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
@@ -150,7 +150,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   open func insert(views _views: [UIView], before view: UIView, animated: Bool) {
 
     _views.forEach { view in
-      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
@@ -187,7 +187,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   open func insert(views _views: [UIView], after view: UIView, animated: Bool) {
 
     _views.forEach { view in
-      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
