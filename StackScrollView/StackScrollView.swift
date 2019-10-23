@@ -115,14 +115,14 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func insert(views _views: [UIView], at index: Int, animated: Bool) {
 
-    var _views = _views
-    _views.removeAll(where: views.contains(_:))
-    views.insert(contentsOf: _views, at: index)
     _views.forEach { view in
-      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
+      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
+        var _views = _views
+        _views.removeAll(where: self.views.contains(_:))
+        self.views.insert(contentsOf: _views, at: index)
         self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
       }, completion: nil)
     }
@@ -149,70 +149,130 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func insert(views _views: [UIView], before view: UIView, animated: Bool) {
 
-    guard let index = views.firstIndex(of: view) else {
-      return
+    _views.forEach { view in
+      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
-    insert(views: _views, at: index, animated: animated)
+    let batchUpdates: () -> Void = {
+      self.performBatchUpdates({
+        guard let index = self.views.firstIndex(of: view) else {
+          return
+        }
+        var _views = _views
+        _views.removeAll(where: self.views.contains(_:))
+        self.views.insert(contentsOf: _views, at: index)
+        self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
+      }, completion: nil)
+    }
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: batchUpdates,
+        completion: nil)
+
+    } else {
+      UIView.performWithoutAnimation(batchUpdates)
+    }
   }
 
   open func insert(views _views: [UIView], after view: UIView, animated: Bool) {
 
-    guard let index = views.firstIndex(of: view)?.advanced(by: 1) else {
-      return
+    _views.forEach { view in
+      self.register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     }
-    insert(views: _views, at: index, animated: animated)
+    let batchUpdates: () -> Void = {
+      self.performBatchUpdates({
+        guard let index = self.views.firstIndex(of: view)?.advanced(by: 1) else {
+          return
+        }
+        var _views = _views
+        _views.removeAll(where: self.views.contains(_:))
+        self.views.insert(contentsOf: _views, at: index)
+        self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
+      }, completion: nil)
+    }
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: batchUpdates,
+        completion: nil)
+
+    } else {
+      UIView.performWithoutAnimation(batchUpdates)
+    }
   }
   
   open func remove(view: UIView, animated: Bool) {
-    
-    if let index = views.firstIndex(of: view) {
-      views.remove(at: index)
-      if animated {
-        UIView.animate(
-          withDuration: 0.5,
-          delay: 0,
-          usingSpringWithDamping: 1,
-          initialSpringVelocity: 0,
-          options: [
-            .beginFromCurrentState,
-            .allowUserInteraction,
-            .overrideInheritedCurve,
-            .overrideInheritedOptions,
-            .overrideInheritedDuration
-          ],
-          animations: {
-            self.performBatchUpdates({
-              self.deleteItems(at: [IndexPath(item: index, section: 0)])
-            }, completion: nil)
-        }) { (finish) in
-          
+
+    let batchUpdates: () -> Void = {
+      self.performBatchUpdates({
+        guard let index = self.views.firstIndex(of: view) else {
+          return
         }
-        
-      } else {
-        UIView.performWithoutAnimation {
-          performBatchUpdates({
-            self.deleteItems(at: [IndexPath(item: index, section: 0)])
-          }, completion: nil)
-        }
-      }
+        self.views.remove(at: index)
+        self.deleteItems(at: [IndexPath(item: index, section: 0)])
+      }, completion: nil)
+    }
+    if animated {
+      UIView.animate(
+        withDuration: 0.5,
+        delay: 0,
+        usingSpringWithDamping: 1,
+        initialSpringVelocity: 0,
+        options: [
+          .beginFromCurrentState,
+          .allowUserInteraction,
+          .overrideInheritedCurve,
+          .overrideInheritedOptions,
+          .overrideInheritedDuration
+        ],
+        animations: batchUpdates,
+        completion: nil)
+
+    } else {
+      UIView.performWithoutAnimation(batchUpdates)
     }
   }
   
   open func remove(views: [UIView], animated: Bool) {
 
-    var indicesForRemove: [Int] = []
+    let batchUpdates: () -> Void = {
+      self.performBatchUpdates({
+        var indicesForRemove: [Int] = []
 
-    for view in views {
-      if let index = self.views.firstIndex(of: view) {
-        indicesForRemove.append(index)
-      }
-    }
+        for view in views {
+          if let index = self.views.firstIndex(of: view) {
+            indicesForRemove.append(index)
+          }
+        }
 
-    // It seems that the layout is not updated properly unless the order is aligned.
-    indicesForRemove.sort(by: >)
+        // It seems that the layout is not updated properly unless the order is aligned.
+        indicesForRemove.sort(by: >)
 
-    for index in indicesForRemove {
-      self.views.remove(at: index)
+        for index in indicesForRemove {
+          self.views.remove(at: index)
+        }
+        self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
+      }, completion: nil)
     }
 
     if animated {
@@ -228,17 +288,10 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           .overrideInheritedOptions,
           .overrideInheritedDuration
         ],
-        animations: {
-          self.performBatchUpdates({
-            self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-          }, completion: nil)
-        })
+        animations: batchUpdates,
+        completion: nil)
     } else {
-      UIView.performWithoutAnimation {
-        performBatchUpdates({
-          self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-        }, completion: nil)
-      }
+      UIView.performWithoutAnimation(batchUpdates)
     }
   }
 
