@@ -115,6 +115,8 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
   open func insert(views _views: [UIView], at index: Int, animated: Bool) {
 
+    layoutIfNeeded()
+
     var _views = _views
     _views.removeAll(where: views.contains(_:))
     views.insert(contentsOf: _views, at: index)
@@ -164,7 +166,9 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
   
   open func remove(view: UIView, animated: Bool) {
-    
+
+    layoutIfNeeded()
+
     if let index = views.firstIndex(of: view) {
       views.remove(at: index)
       if animated {
@@ -199,6 +203,8 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   }
   
   open func remove(views: [UIView], animated: Bool) {
+
+    layoutIfNeeded()
 
     var indicesForRemove: [Int] = []
 
