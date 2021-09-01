@@ -113,7 +113,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     
   }
 
-  open func insert(views _views: [UIView], at index: Int, animated: Bool) {
+  open func insert(views _views: [UIView], at index: Int, animated: Bool, completion: @escaping () -> Void) {
 
     layoutIfNeeded()
 
@@ -126,7 +126,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
         self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
-      }, completion: nil)
+      }, completion: { _ in completion() })
     }
     if animated {
       UIView.animate(
@@ -149,23 +149,25 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
   }
 
-  open func insert(views _views: [UIView], before view: UIView, animated: Bool) {
+  open func insert(views _views: [UIView], before view: UIView, animated: Bool, completion: @escaping () -> Void = {}) {
 
     guard let index = views.firstIndex(of: view) else {
+      completion()
       return
     }
-    insert(views: _views, at: index, animated: animated)
+    insert(views: _views, at: index, animated: animated, completion: completion)
   }
 
-  open func insert(views _views: [UIView], after view: UIView, animated: Bool) {
+  open func insert(views _views: [UIView], after view: UIView, animated: Bool, completion: @escaping () -> Void = {}) {
 
     guard let index = views.firstIndex(of: view)?.advanced(by: 1) else {
+      completion()
       return
     }
-    insert(views: _views, at: index, animated: animated)
+    insert(views: _views, at: index, animated: animated, completion: completion)
   }
   
-  open func remove(view: UIView, animated: Bool) {
+  open func remove(view: UIView, animated: Bool, completion: @escaping () -> Void = {}) {
 
     layoutIfNeeded()
 
@@ -187,7 +189,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           animations: {
             self.performBatchUpdates({
               self.deleteItems(at: [IndexPath(item: index, section: 0)])
-            }, completion: nil)
+            }, completion: { _ in completion() })
         }) { (finish) in
           
         }
@@ -196,13 +198,13 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
         UIView.performWithoutAnimation {
           performBatchUpdates({
             self.deleteItems(at: [IndexPath(item: index, section: 0)])
-          }, completion: nil)
+          }, completion: { _ in completion() })
         }
       }
     }
   }
   
-  open func remove(views: [UIView], animated: Bool) {
+  open func remove(views: [UIView], animated: Bool, completion: @escaping () -> Void = {}) {
 
     layoutIfNeeded()
 
@@ -237,13 +239,13 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
         animations: {
           self.performBatchUpdates({
             self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-          }, completion: nil)
+          }, completion: { _ in completion() })
         })
     } else {
       UIView.performWithoutAnimation {
         performBatchUpdates({
           self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-        }, completion: nil)
+        }, completion: { _ in completion() })
       }
     }
   }
