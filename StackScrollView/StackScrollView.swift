@@ -204,7 +204,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
   }
   
-  open func remove(views: [UIView], animated: Bool) {
+  open func remove(views: [UIView], animated: Bool, completion: @escaping () -> Void = {}) {
 
     layoutIfNeeded()
 
