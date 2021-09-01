@@ -123,7 +123,9 @@
 				4B6C2DA81D8DA439003D3A46 /* Frameworks */,
 				B5611D3702B81D46FD45EAFC /* Pods */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		4B6C2D9A1D8DA3FB003D3A46 /* Products */ = {
 			isa = PBXGroup;
