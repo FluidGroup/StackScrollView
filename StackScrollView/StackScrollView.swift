@@ -126,7 +126,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     let batchUpdates: () -> Void = {
       self.performBatchUpdates({
         self.insertItems(at: (index ..< index.advanced(by: _views.count)).map({ IndexPath(item: $0, section: 0) }))
-      }, completion: nil)
+      }, completion: { _ in completion() })
     }
     if animated {
       UIView.animate(
@@ -142,11 +142,10 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           .overrideInheritedDuration
         ],
         animations: batchUpdates,
-        completion: { _ in completion() })
+        completion: nil)
 
     } else {
       UIView.performWithoutAnimation(batchUpdates)
-      completion()
     }
   }
 
@@ -190,23 +189,22 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           animations: {
             self.performBatchUpdates({
               self.deleteItems(at: [IndexPath(item: index, section: 0)])
-            }, completion: nil)
+            }, completion: { _ in completion() })
         }) { (finish) in
-          completion()
+          
         }
         
       } else {
         UIView.performWithoutAnimation {
           performBatchUpdates({
             self.deleteItems(at: [IndexPath(item: index, section: 0)])
-          }, completion: nil)
+          }, completion: { _ in completion() })
         }
-        completion()
       }
     }
   }
   
-  open func remove(views: [UIView], animated: Bool, completion: @escaping () -> Void = {}) {
+  open func remove(views: [UIView], animated: Bool) {
 
     layoutIfNeeded()
 
@@ -241,16 +239,14 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
         animations: {
           self.performBatchUpdates({
             self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-          }, completion: nil)
-        },
-        completion: { _ in completion() })
+          }, completion: { _ in completion() })
+        })
     } else {
       UIView.performWithoutAnimation {
         performBatchUpdates({
           self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-        }, completion: nil)
+        }, completion: { _ in completion() })
       }
-      completion()
     }
   }
 
