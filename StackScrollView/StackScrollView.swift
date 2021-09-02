@@ -250,6 +250,8 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     }
   }
 
+  /// This method might fail if the view is out of bounds. Use `func scroll(to view: UIView, at position: UICollectionView.ScrollPosition, animated: Bool)` instead
+  @available(*, deprecated, message: "Use `scroll(to view: UIView, at position: UICollectionView.ScrollPosition, animated: Bool)` instead")
   open func scroll(to view: UIView, animated: Bool) {
     
     let targetRect = view.convert(view.bounds, to: self)
