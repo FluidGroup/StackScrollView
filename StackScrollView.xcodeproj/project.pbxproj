@@ -321,10 +321,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StackScrollView-Demo/Pods-StackScrollView-Demo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EasyPeasy/EasyPeasy.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Reveal-SDK/RevealServer.framework/RevealServer",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyPeasy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

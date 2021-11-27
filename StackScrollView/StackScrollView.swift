@@ -30,6 +30,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
     static let left = "me.muukii.StackScrollView.left"
     static let bottom = "me.muukii.StackScrollView.bottom"
     static let width = "me.muukii.StackScrollView.width"
+    static let height = "me.muukii.StackScrollView.height"
   }
   
   private static func defaultLayout() -> UICollectionViewFlowLayout {
@@ -50,6 +51,10 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   open override var delegate: UICollectionViewDelegate? {
     didSet {
     }
+  }
+
+  private var direction: UICollectionView.ScrollDirection {
+    (collectionViewLayout as! UICollectionViewFlowLayout).scrollDirection
   }
   
   // MARK: - Initializers
@@ -323,27 +328,61 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
 
     if let view = view as? ManualLayoutStackCellType {
 
-      return view.size(maxWidth: collectionView.bounds.width, maxHeight: nil)
+      switch direction {
+      case .vertical:
+        return view.size(maxWidth: collectionView.bounds.width, maxHeight: nil)
+      case .horizontal:
+        return view.size(maxWidth: nil, maxHeight: collectionView.bounds.height)
+      @unknown default:
+        fatalError()
+      }
 
     } else {
 
-      let width: NSLayoutConstraint = {
+      switch direction {
+      case .vertical:
 
-        guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
-          let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
-          width.identifier = LayoutKeys.width
-          width.isActive = true
-          return width
-        }
+        let width: NSLayoutConstraint = {
 
-        return c
-      }()
+          guard let c = view.constraints.first(where: { $0.identifier == LayoutKeys.width }) else {
+            let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
+            width.identifier = LayoutKeys.width
+            width.isActive = true
+            return width
+          }
 
-      width.constant = collectionView.bounds.width
+          return c
+        }()
 
-      let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-      
-      return size
+        width.constant = collectionView.bounds.width
+
+        let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+        return size
+
+      case .horizontal:
+
+        let heightConstraint: NSLayoutConstraint = {
+
+          guard let c = view.constraints.first(where: { $0.identifier == LayoutKeys.height }) else {
+            let heightConstraint = view.heightAnchor.constraint(equalToConstant: collectionView.bounds.height)
+            heightConstraint.identifier = LayoutKeys.height
+            heightConstraint.isActive = true
+            return heightConstraint
+          }
+
+          return c
+        }()
+
+        heightConstraint.constant = collectionView.bounds.width
+
+        let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+        return size
+
+      @unknown default:
+        fatalError()
+      }
 
     }
   }
