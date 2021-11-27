@@ -22,7 +22,7 @@
 
 import UIKit
 
-public protocol StackCellType : class {
+public protocol StackCellType : AnyObject {
 
 }
 
@@ -45,7 +45,7 @@ extension StackCellType where Self : UIView {
   
   public func scrollToSelf(animated: Bool) {
 
-    stackScrollView?.scroll(to: self, animated: animated)
+    stackScrollView?.scroll(to: self, at: .centeredVertically, animated: animated)
   }
 
   public func scrollToSelf(at position: UICollectionView.ScrollPosition, animated: Bool) {
