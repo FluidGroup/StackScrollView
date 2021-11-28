@@ -374,7 +374,7 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
           return c
         }()
 
-        heightConstraint.constant = collectionView.bounds.width
+        heightConstraint.constant = collectionView.bounds.height
 
         let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
 
