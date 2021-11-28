@@ -83,8 +83,16 @@ open class StackScrollView: UICollectionView, UICollectionViewDataSource, UIColl
   private func setup() {
     
     backgroundColor = .white
+
+    switch direction {
+    case .vertical:
+      alwaysBounceVertical = true
+    case .horizontal:
+      alwaysBounceHorizontal = true
+    @unknown default:
+      fatalError()
+    }
     
-    alwaysBounceVertical = true
     delaysContentTouches = false
     keyboardDismissMode = .interactive
     backgroundColor = .clear
