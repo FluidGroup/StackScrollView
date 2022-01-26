@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'StackScrollView'
-  s.version          = '1.6.2'
+  s.version          = '1.6.3'
   :xa
   s.summary          = 'Scalable form builder with UICollectionView'
   s.homepage         = 'https://github.com/muukii/StackScrollView'
