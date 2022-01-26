@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
   s.source_files = 'StackScrollView/**/*.swift'
-
+  s.swift_versions = ["5.3", "5.4", "5.5"]
 end
